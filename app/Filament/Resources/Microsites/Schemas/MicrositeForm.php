@@ -2,20 +2,19 @@
 
 namespace App\Filament\Resources\Microsites\Schemas;
 
+use Filament\Actions\Action;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
-use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\KeyValue;
-use Guava\IconPicker\Forms\Components\IconPicker;
 use Illuminate\Support\Str;
 
 class MicrositeForm
@@ -37,7 +36,7 @@ class MicrositeForm
                         TextInput::make('title')
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                            ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                         TextInput::make('slug')
                             ->required()
                             ->unique(ignoreRecord: true),
@@ -104,10 +103,23 @@ class MicrositeForm
                                     ->schema([
                                         TextInput::make('title')->required(),
                                         TextInput::make('url')->label('URL'),
-                                        IconPicker::make('icon')
+                                        TextInput::make('icon')
                                             ->label('Icon')
-                                            ->iconsSearchResults()
-                                            ->columns(6),
+                                            ->readOnly()
+                                            ->extraInputAttributes([
+                                                'x-on:click' => '$el.closest(\'[data-field-wrapper]\').querySelector(\'button\').click()',
+                                                'style' => 'cursor: pointer;',
+                                            ])
+                                            ->suffixAction(
+                                                Action::make('selectIcon')
+                                                    ->icon('heroicon-m-squares-2x2')
+                                                    ->modalHeading('Select Icon')
+                                                    ->modalIcon(false)
+                                                    ->modalWidth('4xl')
+                                                    ->modalContent(fn ($component): \Illuminate\Contracts\View\View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
+                                                    ->modalSubmitAction(false)
+                                                    ->modalCancelAction(false)
+                                            ),
                                         TextInput::make('badge_text'),
                                         Toggle::make('is_active')->default(true),
                                     ])
@@ -115,11 +127,11 @@ class MicrositeForm
                                     ->columnSpanFull()
                                     ->orderColumn('order')
                                     ->collapsible()
-                                    ->itemLabel(fn(array $state): ?string => $state['title'] ?? null),
+                                    ->itemLabel(fn (array $state): ?string => $state['title'] ?? null),
                             ])
                             ->orderColumn('order')
                             ->collapsible()
-                            ->itemLabel(fn(array $state): ?string => $state['type'] ?? null),
+                            ->itemLabel(fn (array $state): ?string => $state['type'] ?? null),
                     ])->columnSpanFull(),
             ]);
     }

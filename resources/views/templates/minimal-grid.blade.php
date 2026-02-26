@@ -56,7 +56,8 @@
             </div>
             <div class="flex items-center gap-2 flex-col text-center">
                 @if($microsite->logo_path)
-                    <img src="{{ asset('storage/' . $microsite->logo_path) }}" alt="Logo" class="h-8 w-auto object-contain">
+                    <img src="{{ asset('storage/' . $microsite->logo_path) }}" alt="Logo"
+                        class="h-24 w-auto object-contain">
                 @endif
             </div>
             <div>
@@ -67,7 +68,7 @@
             </div>
         </header>
 
-        <main class="flex-grow pt-8 md:pt-16 pb-12 w-full">
+        <main class="flex-grow pt-4 md:pt-8 pb-12 w-full">
             <!-- Hero Section -->
             <section class="max-w-5xl mx-auto px-4 text-center">
                 @if($microsite->category)
@@ -106,8 +107,9 @@
 
         <footer class="px-4 py-8 mt-auto">
             <div class="max-w-5xl mx-auto text-center">
-                <p class="text-sm text-gray-500 mb-2">Need help? Contact us at support@training.gov</p>
-                <p class="text-xs text-gray-400">&copy; {{ date('Y') }} Government Training & Development. All rights
+
+                <p class="text-xs text-gray-400">&copy; {{ date('Y') }} Badan Pusat Statistik Kabupaten Demak. All
+                    rights
                     reserved.</p>
             </div>
         </footer>

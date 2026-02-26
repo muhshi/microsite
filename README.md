@@ -9,10 +9,10 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 - **Section Builder:** Build layouts using pre-defined sections:
   - **Grid Card Links:** Clean, rounded cards with hover effects for resource links.
   - **List Links:** Compact, horizontal list style for links.
-- **Visual Icon Picker:** Navigate hundreds of icons (Heroicons & FontAwesome) via a built-in emoji-style picker plugin.
+- **Custom Icon Picker:** A performant, built-in icon picker modal with 3 icon sets (Heroicons, Font Awesome, Phosphor Icons), tab navigation, search filtering, and one-click selection.
 - **Automated SEO:** Automatically generates fallback meta titles, descriptions, and OpenGraph social share images based on the microsite's content and logo.
 - **Web Share API Integration:** Native sharing capabilities for mobile users and fallback clipboard-copy for desktop.
-- **Modern UI Styling:** Beautiful gradient backgrounds, Tailwind CSS utility classes, and glassmorphism touches matching the *Government Training & Development Summit* template.
+- **Modern UI Styling:** Beautiful gradient backgrounds, Tailwind CSS utility classes, and glassmorphism touches.
 - **Dynamic Theming:** Select Theme and Accent colors right from the admin dashboard.
 
 ## 🛠 Tech Stack
@@ -21,7 +21,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 - **Admin Panel:** Filament V3
 - **Styling:** Tailwind CSS (Frontend & Backend)
 - **Database:** SQLite / MySQL / PostgreSQL (Configurable)
-- **Icons:** `guava/filament-icon-picker`, `blade-ui-kit/blade-fontawesome`
+- **Icons:** Heroicons, Font Awesome (`blade-fontawesome`), Phosphor Icons (`blade-phosphor-icons`)
 - **Testing:** Pest PHP
 
 ## ⚙️ Installation & Setup
@@ -71,6 +71,20 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 
 ## 🎨 Built-in Templates
 - `minimal-grid`: A clean, centrally-aligned layout perfect for event link-trees, featuring dynamic branding colors. 
+
+## 📋 Changelog
+
+### 2026-02-26
+- **Custom Icon Picker Modal:** Replaced the slow `guava/filament-icon-picker` with a custom icon picker modal supporting 3 icon groups (Heroicons, Font Awesome, Phosphor Icons), tab navigation, search filtering, and one-click selection.
+- **Icon input click-to-open:** Clicking the icon text field now directly opens the icon picker modal (not just the suffix button).
+- **Enlarged logo on live view:** Logo on the public microsite page enlarged to 6rem with reduced top spacing for better visual balance.
+- **Landing page update:** Elegant UI, localized copy, meta tags, and logo for the welcome page.
+- **Proxy & HTTPS:** Trust all proxies and force HTTPS on production.
+
+### 2026-02-25
+- **Database migration update:** Fixed migration compatibility for SQLite and MySQL.
+- **Docker configuration:** Added Docker configuration for containerized deployment.
+- **Microsite builder phase 7:** Complete redesign with new sections and templates.
 
 ## 📝 License
 This project is open-source and available under the [MIT License](LICENSE).
