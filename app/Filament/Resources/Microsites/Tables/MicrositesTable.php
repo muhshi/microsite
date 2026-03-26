@@ -8,13 +8,12 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
-
-use Filament\Tables\Columns\ColorColumn;
 
 class MicrositesTable
 {
@@ -43,7 +42,6 @@ class MicrositesTable
                     ->sortable(),
                 TextColumn::make('meta_title')
                     ->searchable(),
-                ImageColumn::make('og_image_path'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -64,9 +62,9 @@ class MicrositesTable
                 Action::make('view_live')
                     ->label('View Live')
                     ->icon('heroicon-o-arrow-top-right-on-square')
-                    ->url(fn(\App\Models\Microsite $record): string => route('microsite.show', $record->slug))
+                    ->url(fn (\App\Models\Microsite $record): string => route('redirect.handle', $record->slug))
                     ->openUrlInNewTab()
-                    ->visible(fn(\App\Models\Microsite $record): bool => $record->is_published),
+                    ->visible(fn (\App\Models\Microsite $record): bool => $record->is_published),
                 EditAction::make(),
             ])
             ->toolbarActions([

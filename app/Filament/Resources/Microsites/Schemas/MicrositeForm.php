@@ -73,11 +73,6 @@ class MicrositeForm
                             ->directory('logos')
                             ->imagePreviewHeight('100')
                             ->helperText('SVG, PNG, JPG, or WebP. Maksimal 2MB.'),
-                        FileUpload::make('og_image_path')
-                            ->disk('public')
-                            ->image()
-                            ->directory('seo')
-                            ->label('Social Share Image (Optional)'),
                     ])->columns(2),
 
                 Section::make('Content (Sections & Links)')
@@ -121,6 +116,19 @@ class MicrositeForm
                                                     ->modalCancelAction(false)
                                             ),
                                         TextInput::make('badge_text'),
+                                        Select::make('parent_id')
+                                            ->label('Parent Link (opsional)')
+                                            ->relationship(
+                                                'parent',
+                                                'title',
+                                                modifyQueryUsing: fn (\Illuminate\Database\Eloquent\Builder $query, ?\Illuminate\Database\Eloquent\Model $record) => $query
+                                                    ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
+                                                    ->whereNull('parent_id'),
+                                            )
+                                            ->searchable()
+                                            ->preload()
+                                            ->placeholder('Tidak ada parent (top-level)')
+                                            ->helperText('Jika diisi, link ini akan muncul sebagai child saat parent di-expand.'),
                                         Toggle::make('is_active')->default(true),
                                     ])
                                     ->columns(2)

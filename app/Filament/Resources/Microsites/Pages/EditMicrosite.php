@@ -18,9 +18,9 @@ class EditMicrosite extends EditRecord
             \Filament\Actions\Action::make('view_live')
                 ->label('View Live')
                 ->icon('heroicon-o-arrow-top-right-on-square')
-                ->url(fn(\App\Models\Microsite $record): string => route('microsite.show', $record->slug))
+                ->url(fn (\App\Models\Microsite $record): string => route('redirect.handle', $record->slug))
                 ->openUrlInNewTab()
-                ->visible(fn(\App\Models\Microsite $record): bool => $record->is_published)
+                ->visible(fn (\App\Models\Microsite $record): bool => $record->is_published)
                 ->color('success'),
             DeleteAction::make(),
             ForceDeleteAction::make(),

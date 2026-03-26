@@ -18,7 +18,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 ## 🛠 Tech Stack
 
 - **Framework:** Laravel 12.x
-- **Admin Panel:** Filament V3
+- **Admin Panel:** Filament V5
 - **Styling:** Tailwind CSS (Frontend & Backend)
 - **Database:** SQLite / MySQL / PostgreSQL (Configurable)
 - **Icons:** Heroicons, Font Awesome (`blade-fontawesome`), Phosphor Icons (`blade-phosphor-icons`)
@@ -73,6 +73,12 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 - `minimal-grid`: A clean, centrally-aligned layout perfect for event link-trees, featuring dynamic branding colors. 
 
 ## 📋 Changelog
+
+### 2026-03-26
+- **Link Manager:** Created a standalone Filament resource for managing links independently from microsites, featuring drag-and-drop sorting and filtering.
+- **URL Shortener:** Added a new URL shortener feature that auto-generates unique 6-character short codes, tracks clicks, handles expirations, and integrates with a universal redirect controller to prevent slug conflicts.
+- **Microsite UI Redesign:** Revamped the frontend templates to a modern light mode with a frosted-glass navigation bar, subtle radial gradients, and Alpine.js-powered collapsible section cards.
+- **Parent-Child Links Hierarchy:** Added `parent_id` support to `MicrositeLink`, allowing links to be grouped under collapsible parent cards on the microsite grid and list views.
 
 ### 2026-02-26
 - **Custom Icon Picker Modal:** Replaced the slow `guava/filament-icon-picker` with a custom icon picker modal supporting 3 icon groups (Heroicons, Font Awesome, Phosphor Icons), tab navigation, search filtering, and one-click selection.

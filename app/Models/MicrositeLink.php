@@ -9,6 +9,7 @@ class MicrositeLink extends Model
     protected $fillable = [
         'microsite_id',
         'section_id',
+        'parent_id',
         'title',
         'url',
         'icon',
@@ -28,7 +29,7 @@ class MicrositeLink extends Model
     {
         static::creating(function (MicrositeLink $link) {
             // Automatically set microsite_id from section when created via nested repeater
-            if ($link->section_id && !$link->microsite_id) {
+            if ($link->section_id && ! $link->microsite_id) {
                 if ($section = MicrositeSection::find($link->section_id)) {
                     $link->microsite_id = $section->microsite_id;
                 }
@@ -44,5 +45,15 @@ class MicrositeLink extends Model
     public function section(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(MicrositeSection::class, 'section_id');
+    }
+
+    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id')->orderBy('order');
     }
 }

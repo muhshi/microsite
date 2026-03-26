@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MicrositeController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/{slug}', [MicrositeController::class, 'show'])->name('microsite.show');
+Route::get('/{code}', [RedirectController::class, 'handle'])
+    ->name('redirect.handle')
+    ->where('code', '[a-zA-Z0-9_-]+');
