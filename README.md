@@ -77,6 +77,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 ### 2026-04-08
 - **App Configuration Fix:** Fixed `MissingAppKeyException` by generating a new application encryption key.
 - **Database Connection Fix:** Updated `.env` with the correct relative path for the SQLite database file and synchronized `APP_URL` with the active environment.
+- **Admin Setup:** Created initial admin account for the Filament dashboard.
 
 ### 2026-03-26
 - **Link Manager:** Created a standalone Filament resource for managing links independently from microsites, featuring drag-and-drop sorting and filtering.
