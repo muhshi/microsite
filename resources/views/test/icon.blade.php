@@ -1,0 +1,1 @@
+@svg('phosphor-house')
