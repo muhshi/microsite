@@ -81,7 +81,7 @@
             <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass border-bps-blue/10 mb-8 shadow-sm">
                 <span class="flex h-2 w-2 rounded-full bg-bps-green animate-ping"></span>
                 <span class="text-[10px] font-black text-bps-green uppercase tracking-[0.2em]">
-                    {{ str($microsite->category)->title()->replace('_', ' ') }}
+                    {{ $microsite->category->name }}
                 </span>
             </div>
         @endif

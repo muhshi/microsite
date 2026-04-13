@@ -78,6 +78,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 - **Premium Landing Page UI:** Overhauled the welcome page with a modern dark-themed interface, refined visual balance, dynamic scrolling marquees, and a dashboard overview image to better showcase the platform's capabilities.
 - **Microsite Model Architecture:** Refactored the `Microsite` model to fully adopt a relational `category_id` architecture, replacing the obsolete string-based category implementation, backed by accurate database migrations.
 - **Filament Table & Form Improvements:** Updated the `MicrositeForm` and `MicrositesTable` to seamlessly utilize the `belongsTo` relationship for categorizations, complete with specific resource pages under `app/Filament/Resources/Categories`.
+- **Bug Fix:** Fixed an issue where the category in the microsite template was displayed as a JSON string; it now correctly displays the category name.
 - **Template & Styling Enhancements:** Refined the `minimal-grid` template and `app.css` to adhere to the modernized visual language and new UI components.
 
 ### 2026-04-08
