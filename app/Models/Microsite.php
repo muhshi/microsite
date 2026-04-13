@@ -11,7 +11,8 @@ class Microsite extends Model
     use HasFactory, \Illuminate\Database\Eloquent\SoftDeletes;
 
     protected $fillable = [
-        'category',
+        'category_id',
+
         'title',
         'slug',
         'description',
@@ -47,5 +48,10 @@ class Microsite extends Model
     public function links(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(MicrositeLink::class)->orderBy('order');
+    }
+
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

@@ -21,10 +21,12 @@ class MicrositesTable
     {
         return $table
             ->columns([
-                TextColumn::make('category')
+                TextColumn::make('category.name')
+                    ->label('Category')
                     ->badge()
                     ->searchable()
                     ->sortable(),
+
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),

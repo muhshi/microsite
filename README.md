@@ -74,10 +74,18 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 
 ## 📋 Changelog
 
+### 2026-04-13
+- **Premium Landing Page UI:** Overhauled the welcome page with a modern dark-themed interface, refined visual balance, dynamic scrolling marquees, and a dashboard overview image to better showcase the platform's capabilities.
+- **Microsite Model Architecture:** Refactored the `Microsite` model to fully adopt a relational `category_id` architecture, replacing the obsolete string-based category implementation, backed by accurate database migrations.
+- **Filament Table & Form Improvements:** Updated the `MicrositeForm` and `MicrositesTable` to seamlessly utilize the `belongsTo` relationship for categorizations, complete with specific resource pages under `app/Filament/Resources/Categories`.
+- **Template & Styling Enhancements:** Refined the `minimal-grid` template and `app.css` to adhere to the modernized visual language and new UI components.
+
 ### 2026-04-08
+- **Landing Page Redesign:** Redesigned landing page with modern glassmorphism UI, BPS-inspired gradients, and enhanced typography using Plus Jakarta Sans. Updated `app.css` to use Tailwind CSS v4 `@theme`.
 - **App Configuration Fix:** Fixed `MissingAppKeyException` by generating a new application encryption key.
 - **Database Connection Fix:** Updated `.env` with the correct relative path for the SQLite database file and synchronized `APP_URL` with the active environment.
 - **Admin Setup:** Created initial admin account for the Filament dashboard.
+- **Category Management:** Added a new `Category` resource to group microsites. Integrated a searchable relationship select in the microsite builder for easy categorization.
 
 ### 2026-03-26
 - **Link Manager:** Created a standalone Filament resource for managing links independently from microsites, featuring drag-and-drop sorting and filtering.

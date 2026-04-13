@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $microsite->meta_title ?? $microsite->title }}</title>
+    <title>{{ $microsite->meta_title ?? $microsite->title }} | BPS Kab. Demak</title>
+    
     @if($microsite->description)
         <meta name="description" content="{{ $microsite->meta_description ?? $microsite->description }}">
     @endif
+    
     <meta property="og:title" content="{{ $microsite->meta_title ?? $microsite->title }}">
     @if($microsite->description)
         <meta property="og:description" content="{{ $microsite->meta_description ?? $microsite->description }}">
@@ -17,132 +19,98 @@
         <meta property="og:image" content="{{ asset('storage/' . ($microsite->og_image_path ?? $microsite->logo_path)) }}">
     @endif
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Styles / Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
 
     <style>
         :root {
-            --primary: {{ $microsite->theme_color ?? '#6366f1' }};
-            --accent: {{ $microsite->accent_color ?? '#818cf8' }};
-        }
-
-        .glass-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -3px rgba(0,0,0,0.04);
-            border-color: #d1d5db;
-        }
-
-        .animate-gradient-x {
-            background-size: 200% 200%;
-            animation: gradient-x 6s ease infinite;
-        }
-
-        @keyframes gradient-x {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .icon-glow {
-            box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 20%, transparent);
+            --primary: {{ $microsite->theme_color ?? '#005bab' }};
+            --accent: {{ $microsite->accent_color ?? '#4eb441' }};
         }
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-indigo-100 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col">
 
-    {{-- Background Decoration --}}
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-[0.06]"
-            style="background: radial-gradient(circle, var(--primary), transparent 70%);"></div>
-        <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full opacity-[0.05]"
-            style="background: radial-gradient(circle, var(--accent), transparent 70%);"></div>
-        <div class="absolute -bottom-40 left-1/4 w-[700px] h-[700px] rounded-full opacity-[0.04]"
-            style="background: radial-gradient(circle, #3b82f6, transparent 70%);"></div>
+    <!-- Vibrant Background -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+        <div class="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-bps-blue/5 rounded-full filter blur-[120px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-bps-green/5 rounded-full filter blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-bps-orange/5 rounded-full filter blur-[100px] animate-pulse-slow" style="animation-delay: 4s;"></div>
+        <div class="absolute inset-0 opacity-[0.02] mix-blend-multiply" style="background-image: url('data:image/svg+xml,%3Csvg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M15 0L15 30M0 15L30 15\" fill=\"none\" stroke=\"%23005bab\" stroke-width=\"0.5\"/%3E%3C/svg%3E');"></div>
     </div>
 
-    {{-- Navigation --}}
-    <nav class="relative z-50 sticky top-0 border-b border-gray-200/80 bg-white/80 backdrop-blur-xl">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                @if($microsite->logo_path)
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center overflow-hidden bg-gray-50 border border-gray-200 p-1 shadow-sm">
-                        <img src="{{ asset('storage/' . $microsite->logo_path) }}" alt="Logo"
-                            class="w-full h-full object-contain">
+    <!-- Navigation -->
+    <nav class="relative z-50 sticky top-0 px-6 py-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass flex items-center justify-between px-8 py-4 rounded-[2rem] shadow-xl shadow-slate-200/50">
+                <div class="flex items-center gap-4 group cursor-pointer" onclick="window.location.href='/'">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo BPS" class="h-8 w-auto">
+                    <div class="border-l-2 border-slate-200 pl-4">
+                        <span class="block text-sm font-black text-bps-blue uppercase tracking-tighter leading-none mb-0.5">PORTAL TERPADU</span>
+                        <span class="block text-[8px] font-bold text-slate-500 uppercase tracking-[0.2em] opacity-70">BPS Kabupaten Demak</span>
                     </div>
-                @endif
-                <span class="text-lg sm:text-xl font-bold tracking-tight text-gray-900">
-                    {{ $microsite->title }}
-                </span>
-            </div>
+                </div>
 
-            <button onclick="shareMicrosite()"
-                class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-700 transition-all duration-300 hover:shadow-sm flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                </svg>
-                <span class="hidden sm:inline">Share</span>
-            </button>
+                <div class="flex items-center gap-6">
+                    <button onclick="shareMicrosite()"
+                        class="px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all duration-300 flex items-center gap-2 active:scale-95 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        <span class="hidden sm:inline">Share</span>
+                    </button>
+                    @auth
+                        <a href="{{ url('/admin') }}" class="btn-primary !px-5 !py-2.5 !text-xs">Manage</a>
+                    @endauth
+                </div>
+            </div>
         </div>
     </nav>
 
-    {{-- Hero --}}
-    <header class="relative z-10 pt-12 sm:pt-20 pb-8 sm:pb-12 px-4 sm:px-6 text-center">
+    <!-- Hero -->
+    <header class="relative z-10 pt-16 pb-12 px-6 text-center reveal">
         @if($microsite->category)
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border"
-                style="background-color: color-mix(in srgb, var(--primary) 8%, white); border-color: color-mix(in srgb, var(--primary) 15%, transparent);">
-                <span class="w-2 h-2 rounded-full animate-pulse"
-                    style="background-color: var(--primary); box-shadow: 0 0 6px var(--primary);"></span>
-                <span class="text-sm font-medium tracking-wide" style="color: var(--primary);">
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass border-bps-blue/10 mb-8 shadow-sm">
+                <span class="flex h-2 w-2 rounded-full bg-bps-green animate-ping"></span>
+                <span class="text-[10px] font-black text-bps-green uppercase tracking-[0.2em]">
                     {{ str($microsite->category)->title()->replace('_', ' ') }}
                 </span>
             </div>
         @endif
 
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1] max-w-4xl mx-auto">
-            <span class="bg-clip-text text-transparent bg-gradient-to-r animate-gradient-x"
-                style="background-image: linear-gradient(to right, var(--primary), var(--accent), var(--primary));">
+        <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-8 leading-[1.1] text-slate-900 reveal">
+            <span class="text-gradient">
                 {{ $microsite->hero_title ?? $microsite->title }}
             </span>
         </h1>
 
         @if($microsite->hero_subtitle ?? $microsite->description)
-            <p class="text-base sm:text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium opacity-90 reveal">
                 {{ $microsite->hero_subtitle ?? $microsite->description }}
             </p>
         @endif
+
+        <div class="w-24 h-1.5 bg-gradient-to-r from-bps-blue via-bps-green to-bps-orange mx-auto mt-12 rounded-full opacity-50"></div>
     </header>
 
-    {{-- Dynamic Sections --}}
-    <main class="relative z-10 flex-grow pb-16 sm:pb-24 px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto flex flex-col gap-10 sm:gap-14">
+    <!-- Dynamic Sections -->
+    <main class="relative z-10 flex-grow pb-24 px-6 reveal">
+        <div class="max-w-6xl mx-auto flex flex-col gap-16">
             @foreach($microsite->sections as $section)
                 @if(view()->exists("components.sections.{$section->type}"))
-                    @include("components.sections.{$section->type}", ['section' => $section])
+                    <div class="reveal">
+                        @include("components.sections.{$section->type}", ['section' => $section])
+                    </div>
                 @else
-                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-amber-700 text-sm">
+                    <div class="glass border-amber-200 p-6 rounded-3xl text-amber-700 text-sm font-medium">
                         Section component '{{ $section->type }}' not found.
                     </div>
                 @endif
@@ -150,17 +118,42 @@
         </div>
     </main>
 
-    {{-- Footer --}}
-    <footer class="relative z-10 border-t border-gray-200 mt-auto bg-white/60 backdrop-blur-sm">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-gray-400 text-xs sm:text-sm font-light text-center sm:text-left">
-                &copy; {{ date('Y') }} Badan Pusat Statistik Kabupaten Demak.
+    <!-- Section Divider -->
+    <div class="relative h-20 w-full bg-slate-50 overflow-hidden -mb-px">
+        <svg class="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120H1440V0C1440 0 1120 70 720 70C320 70 0 0 0 0V120Z" fill="#0f172a"/>
+        </svg>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-[400px] h-[400px] bg-bps-blue/10 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex items-center gap-4">
+                <div class="p-2 bg-white rounded-xl shadow-lg">
+                    <img src="{{ asset('images/logo.png') }}" class="h-8 w-auto" alt="Logo Footer">
+                </div>
+                <div>
+                   <h4 class="text-sm font-black tracking-tighter leading-none mb-1">BPS KABUPATEN</h4>
+                   <h4 class="text-sm font-black tracking-tighter text-bps-blue leading-none uppercase">DEMAK</h4>
+                </div>
+            </div>
+
+            <p class="text-slate-500 font-medium text-xs text-center md:text-left">
+                &copy; {{ date('Y') }} Badan Pusat Statistik Kabupaten Demak. <br class="md:hidden"> Seluruh hak cipta dilindungi.
             </p>
-            <div class="flex items-center gap-2 text-gray-400 text-xs sm:text-sm font-light">
-                <span>Made with <span class="text-rose-500 mx-1">♥</span> for data lovers.</span>
+
+            <div class="flex items-center gap-3 px-5 py-2 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300">Data Mencerdaskan Bangsa</span>
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 glass border-white text-bps-blue rounded-xl shadow-2xl flex items-center justify-center translate-y-20 opacity-0 transition-all duration-500 hover:bg-bps-blue hover:text-white z-[60]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg>
+    </button>
 
     <script>
         function shareMicrosite() {
@@ -169,19 +162,57 @@
                     title: '{{ $microsite->title }}',
                     text: '{{ $microsite->description }}',
                     url: window.location.href,
-                })
-                    .then(() => console.log('Successful share'))
-                    .catch((error) => console.log('Error sharing', error));
+                }).catch((error) => console.log('Error sharing', error));
             } else {
                 navigator.clipboard.writeText(window.location.href).then(() => {
                     const btn = document.querySelector('button[onclick="shareMicrosite()"]');
                     const originalHTML = btn.innerHTML;
-                    btn.innerHTML = '<svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Copied!</span>';
+                    btn.innerHTML = '<svg class="w-4 h-4 text-bps-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span>Copied!</span>';
                     setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
                 });
             }
         }
+
+        // Scroll Reveal & Back to Top Logic
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-on');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            el.classList.add('reveal-off');
+            observer.observe(el);
+        });
+
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.remove('translate-y-20', 'opacity-0');
+            } else {
+                backToTop.classList.add('translate-y-20', 'opacity-0');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
+
+    <style>
+        .reveal-off {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-on {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    </style>
 </body>
 
 </html>
+l>

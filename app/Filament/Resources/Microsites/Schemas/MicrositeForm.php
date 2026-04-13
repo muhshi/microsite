@@ -25,14 +25,21 @@ class MicrositeForm
             ->components([
                 Section::make('General Information')
                     ->schema([
-                        Select::make('category')
-                            ->options([
-                                'training' => 'Training & Development',
-                                'sensus' => 'Sensus / Survey',
-                                'zi' => 'Zona Integritas',
-                                'event' => 'General Event',
-                            ])
-                            ->required(),
+                        Select::make('category_id')
+                            ->relationship('category', 'name')
+                            ->required()
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (string $operation, $state, Set $set) => $set('slug', \Illuminate\Support\Str::slug($state))),
+                                TextInput::make('slug')
+                                    ->required()
+                                    ->unique('categories', 'slug'),
+                            ]),
+
                         TextInput::make('title')
                             ->required()
                             ->live(onBlur: true)
