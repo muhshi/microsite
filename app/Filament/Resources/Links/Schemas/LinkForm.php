@@ -8,6 +8,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class LinkForm
 {
@@ -35,7 +38,7 @@ class LinkForm
                                     ->modalHeading('Select Icon')
                                     ->modalIcon(false)
                                     ->modalWidth('4xl')
-                                    ->modalContent(fn ($component): \Illuminate\Contracts\View\View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
+                                    ->modalContent(fn ($component): View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
                                     ->modalSubmitAction(false)
                                     ->modalCancelAction(false)
                             ),
@@ -62,7 +65,7 @@ class LinkForm
                             ->relationship(
                                 'parent',
                                 'title',
-                                modifyQueryUsing: fn (\Illuminate\Database\Eloquent\Builder $query, ?\Illuminate\Database\Eloquent\Model $record) => $query
+                                modifyQueryUsing: fn (Builder $query, ?Model $record) => $query
                                     ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
                                     ->whereNull('parent_id'),
                             )

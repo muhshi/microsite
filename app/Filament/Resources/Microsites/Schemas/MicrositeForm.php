@@ -15,6 +15,9 @@ use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class MicrositeForm
@@ -34,7 +37,7 @@ class MicrositeForm
                                 TextInput::make('name')
                                     ->required()
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $operation, $state, Set $set) => $set('slug', \Illuminate\Support\Str::slug($state))),
+                                    ->afterStateUpdated(fn (string $operation, $state, Set $set) => $set('slug', Str::slug($state))),
                                 TextInput::make('slug')
                                     ->required()
                                     ->unique('categories', 'slug'),
@@ -118,7 +121,7 @@ class MicrositeForm
                                                     ->modalHeading('Select Icon')
                                                     ->modalIcon(false)
                                                     ->modalWidth('4xl')
-                                                    ->modalContent(fn ($component): \Illuminate\Contracts\View\View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
+                                                    ->modalContent(fn ($component): View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
                                                     ->modalSubmitAction(false)
                                                     ->modalCancelAction(false)
                                             ),
@@ -128,7 +131,7 @@ class MicrositeForm
                                             ->relationship(
                                                 'parent',
                                                 'title',
-                                                modifyQueryUsing: fn (\Illuminate\Database\Eloquent\Builder $query, ?\Illuminate\Database\Eloquent\Model $record) => $query
+                                                modifyQueryUsing: fn (Builder $query, ?Model $record) => $query
                                                     ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
                                                     ->whereNull('parent_id'),
                                             )

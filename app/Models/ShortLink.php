@@ -2,22 +2,24 @@
 
 namespace App\Models;
 
+use Database\Factories\ShortLinkFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+#[Fillable([
+    'code',
+    'original_url',
+    'clicks',
+    'is_active',
+    'expires_at',
+])]
 class ShortLink extends Model
 {
-    /** @use HasFactory<\Database\Factories\ShortLinkFactory> */
+    /** @use HasFactory<ShortLinkFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'code',
-        'original_url',
-        'clicks',
-        'is_active',
-        'expires_at',
-    ];
 
     protected static function booted(): void
     {
@@ -58,7 +60,7 @@ class ShortLink extends Model
             $code = Str::random($length);
         } while (
             static::where('code', $code)->exists()
-            || \App\Models\Microsite::where('slug', $code)->exists()
+            || Microsite::where('slug', $code)->exists()
         );
 
         return $code;

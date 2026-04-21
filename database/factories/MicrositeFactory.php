@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Microsite;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Microsite>
+ * @extends Factory<Microsite>
  */
 class MicrositeFactory extends Factory
 {
@@ -17,7 +18,7 @@ class MicrositeFactory extends Factory
     public function definition(): array
     {
         return [
-            'category' => fake()->randomElement(['training', 'sensus', 'zi']),
+            'category_id' => \App\Models\Category::factory(),
             'title' => fake()->sentence(3),
             'slug' => fake()->unique()->slug(),
             'description' => fake()->paragraph(),

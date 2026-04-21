@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Microsites\Pages;
 
 use App\Filament\Resources\Microsites\MicrositeResource;
+use App\Models\Microsite;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
@@ -15,12 +17,12 @@ class EditMicrosite extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            \Filament\Actions\Action::make('view_live')
+            Action::make('view_live')
                 ->label('View Live')
                 ->icon('heroicon-o-arrow-top-right-on-square')
-                ->url(fn (\App\Models\Microsite $record): string => route('redirect.handle', $record->slug))
+                ->url(fn (Microsite $record): string => route('redirect.handle', $record->slug))
                 ->openUrlInNewTab()
-                ->visible(fn (\App\Models\Microsite $record): bool => $record->is_published)
+                ->visible(fn (Microsite $record): bool => $record->is_published)
                 ->color('success'),
             DeleteAction::make(),
             ForceDeleteAction::make(),

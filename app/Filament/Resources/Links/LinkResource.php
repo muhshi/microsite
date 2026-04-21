@@ -50,7 +50,7 @@ class LinkResource extends Resource
         return [
             'index' => ListLinks::route('/'),
             'create' => CreateLink::route('/create'),
-            //'edit' => EditLink::route('/{record}/edit'),
+            // 'edit' => EditLink::route('/{record}/edit'),
         ];
     }
 }

@@ -1,6 +1,6 @@
 # BPS Event & Activity Microsite Builder
 
-A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3. This application allows administrators to instantly generate beautiful, customizable landing pages for various government activities, training events, surveys, and integrity zones without writing any code.
+A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5. This application allows administrators to instantly generate beautiful, customizable landing pages for various government activities, training events, surveys, and integrity zones without writing any code.
 
 ## 🚀 Key Features
 
@@ -17,7 +17,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 
 ## 🛠 Tech Stack
 
-- **Framework:** Laravel 12.x
+- **Framework:** Laravel 13.x
 - **Admin Panel:** Filament V5
 - **Styling:** Tailwind CSS (Frontend & Backend)
 - **Database:** SQLite / MySQL / PostgreSQL (Configurable)
@@ -73,6 +73,11 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 - `minimal-grid`: A clean, centrally-aligned layout perfect for event link-trees, featuring dynamic branding colors. 
 
 ## 📋 Changelog
+
+### 2026-04-14
+- **Laravel 13 Upgrade:** Successfully upgraded the entire framework core to Laravel 13.4.0, ensuring compatibility with PHP 8.4 and optimizing the project for the latest ecosystem features.
+- **Dependency Modernization:** Updated critical dependencies including `laravel/tinker` to v3.0, `owenvoke/blade-fontawesome` to v3.2, and `pestphp/pest` to v4.5 to resolve compatibility conflicts during the upgrade process.
+- **Eloquent Attribute Adoption:** Began refactoring Eloquent models to use the new Laravel 13 native PHP Attributes (e.g., `#[Fillable]`, `#[Hidden]`) for a cleaner, more declarative model configuration.
 
 ### 2026-04-13
 - **Premium Landing Page UI:** Overhauled the welcome page with a modern dark-themed interface, refined visual balance, dynamic scrolling marquees, and a dashboard overview image to better showcase the platform's capabilities.

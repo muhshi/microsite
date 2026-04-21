@@ -2,35 +2,39 @@
 
 namespace App\Models;
 
+use Database\Factories\MicrositeFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable([
+    'category_id',
+    'title',
+    'slug',
+    'description',
+    'start_date',
+    'end_date',
+    'template_key',
+    'theme_color',
+    'accent_color',
+    'logo_path',
+    'hero_title',
+    'hero_subtitle',
+    'layout_type',
+    'is_published',
+    'published_at',
+    'meta_title',
+    'meta_description',
+    'og_image_path',
+])]
 class Microsite extends Model
 {
-    /** @use HasFactory<\Database\Factories\MicrositeFactory> */
+    /** @use HasFactory<MicrositeFactory> */
     use HasFactory, \Illuminate\Database\Eloquent\SoftDeletes;
 
-    protected $fillable = [
-        'category_id',
 
-        'title',
-        'slug',
-        'description',
-        'start_date',
-        'end_date',
-        'template_key',
-        'theme_color',
-        'accent_color',
-        'logo_path',
-        'hero_title',
-        'hero_subtitle',
-        'layout_type',
-        'is_published',
-        'published_at',
-        'meta_title',
-        'meta_description',
-        'og_image_path',
-    ];
 
     protected function casts(): array
     {
@@ -40,17 +44,17 @@ class Microsite extends Model
         ];
     }
 
-    public function sections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sections(): HasMany
     {
         return $this->hasMany(MicrositeSection::class)->orderBy('order');
     }
 
-    public function links(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function links(): HasMany
     {
         return $this->hasMany(MicrositeLink::class)->orderBy('order');
     }
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
