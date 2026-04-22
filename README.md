@@ -75,6 +75,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 ## 📋 Changelog
 
 ### 2026-04-22
+- **Docker Fix:** Added `.dockerignore` to exclude `storage`, `vendor`, and other unnecessary files from the build context. This resolves the "permission denied" error during image building caused by the `livewire-tmp` directory.
 - **Docker Update:** Added Node.js 20.x and npm installation to the Dockerfile to support frontend asset builds inside the container.
 
 ### 2026-04-13
