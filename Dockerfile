@@ -7,19 +7,21 @@ WORKDIR /app
 
 # Sistem deps & ekstensi PHP yang umum dipakai Laravel/Filament
 RUN apt-get update && apt-get install -y \
-    curl \
     libicu-dev \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     zip \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) intl gd zip pdo_mysql \
     && docker-php-ext-enable intl gd zip pdo_mysql \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js & npm (copy from official node image for reliability)
+COPY --from=node:20 /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:20 /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 COPY . /app
 # Composer (buat install deps dari dalam container)
