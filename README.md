@@ -74,6 +74,9 @@ A dynamic, multi-tenant microsite builder built with Laravel 12 and Filament V3.
 
 ## 📋 Changelog
 
+### 2026-04-22
+- **Docker Update:** Added Node.js 20.x and npm installation to the Dockerfile to support frontend asset builds inside the container.
+
 ### 2026-04-13
 - **Premium Landing Page UI:** Overhauled the welcome page with a modern dark-themed interface, refined visual balance, dynamic scrolling marquees, and a dashboard overview image to better showcase the platform's capabilities.
 - **Microsite Model Architecture:** Refactored the `Microsite` model to fully adopt a relational `category_id` architecture, replacing the obsolete string-based category implementation, backed by accurate database migrations.

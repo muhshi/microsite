@@ -7,12 +7,15 @@ WORKDIR /app
 
 # Sistem deps & ekstensi PHP yang umum dipakai Laravel/Filament
 RUN apt-get update && apt-get install -y \
+    curl \
     libicu-dev \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     zip \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) intl gd zip pdo_mysql \
     && docker-php-ext-enable intl gd zip pdo_mysql \
