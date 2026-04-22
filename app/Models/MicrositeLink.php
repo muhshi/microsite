@@ -2,21 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable([
+    'microsite_id',
+    'section_id',
+    'parent_id',
+    'title',
+    'url',
+    'icon',
+    'badge_text',
+    'order',
+    'is_active',
+])]
 class MicrositeLink extends Model
 {
-    protected $fillable = [
-        'microsite_id',
-        'section_id',
-        'parent_id',
-        'title',
-        'url',
-        'icon',
-        'badge_text',
-        'order',
-        'is_active',
-    ];
+
 
     protected function casts(): array
     {
@@ -37,22 +41,22 @@ class MicrositeLink extends Model
         });
     }
 
-    public function microsite(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function microsite(): BelongsTo
     {
         return $this->belongsTo(Microsite::class);
     }
 
-    public function section(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function section(): BelongsTo
     {
         return $this->belongsTo(MicrositeSection::class, 'section_id');
     }
 
-    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id')->orderBy('order');
     }

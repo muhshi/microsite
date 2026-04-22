@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Microsites\Tables;
 
+use App\Models\Microsite;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -64,9 +65,9 @@ class MicrositesTable
                 Action::make('view_live')
                     ->label('View Live')
                     ->icon('heroicon-o-arrow-top-right-on-square')
-                    ->url(fn (\App\Models\Microsite $record): string => route('redirect.handle', $record->slug))
+                    ->url(fn (Microsite $record): string => route('redirect.handle', $record->slug))
                     ->openUrlInNewTab()
-                    ->visible(fn (\App\Models\Microsite $record): bool => $record->is_published),
+                    ->visible(fn (Microsite $record): bool => $record->is_published),
                 EditAction::make(),
             ])
             ->toolbarActions([
