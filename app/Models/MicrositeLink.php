@@ -20,8 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class MicrositeLink extends Model
 {
-
-
     protected function casts(): array
     {
         return [

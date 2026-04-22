@@ -143,7 +143,7 @@
         <div class="max-w-7xl mx-auto px-6 py-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="flex items-center gap-4">
                 <div class="p-2 bg-white rounded-xl shadow-lg">
-                    <img src="{{ $microsite->logo_path ? asset('storage/' . $microsite->logo_path) : asset('images/logo.png') }}" class="h-8 w-auto" alt="Logo {{ $microsite->title }}">
+                    <img src="{{ asset('images/logo.png') }}" class="h-8 w-auto" alt="Logo BPS">
                 </div>
                 <div>
                    <h4 class="text-sm font-black tracking-tighter leading-none mb-1">BADAN PUSAT STATISTIK</h4>

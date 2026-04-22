@@ -34,8 +34,6 @@ class Microsite extends Model
     /** @use HasFactory<MicrositeFactory> */
     use HasFactory, \Illuminate\Database\Eloquent\SoftDeletes;
 
-
-
     protected function casts(): array
     {
         return [

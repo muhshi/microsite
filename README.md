@@ -75,7 +75,10 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-04-22
+- **Bug Fix:** Fixed `MassAssignmentException` on `Category` model by replacing the experimental `#[Fillable]` attribute with the standard `$fillable` property.
+- **UI Fix:** Updated the microsite footer to always use the default BPS logo, ensuring consistent branding regardless of the user-uploaded logo used in the header.
 - **Docker Fix:** Switched to a more robust Node.js installation method by copying from the official Node image. This resolves "npm not found" issues caused by inconsistent package manager behavior in different environments.
+
 - **Docker Fix:** Added `.dockerignore` to exclude `storage`, `vendor`, and other unnecessary files from the build context. This resolves the "permission denied" error during image building caused by the `livewire-tmp` directory.
 - **Docker Update:** Added Node.js 20.x and npm installation to the Dockerfile to support frontend asset builds inside the container.
 - **UI Enhancements:** Improved navbar gradient behavior and share button visibility on the `minimal-grid` template to ensure high contrast and dynamic color compatibility.
