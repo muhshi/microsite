@@ -30,8 +30,16 @@
 
     <style>
         :root {
-            --primary: {{ $microsite->theme_color ?? '#005bab' }};
-            --accent: {{ $microsite->accent_color ?? '#4eb441' }};
+            --color-bps-blue: {{ $microsite->theme_color ?? '#005bab' }};
+            --color-bps-green: {{ $microsite->accent_color ?? '#4eb441' }};
+            --color-bps-orange: {{ $microsite->accent_color ?? '#ff991d' }};
+            
+            /* Darken the primary color for hover states */
+            --color-bps-dark: color-mix(in srgb, var(--color-bps-blue), black 20%);
+            
+            /* Add transparency variants for the dynamic colors */
+            --primary: var(--color-bps-blue);
+            --accent: var(--color-bps-green);
         }
     </style>
 </head>
@@ -49,18 +57,21 @@
     <!-- Navigation -->
     <nav class="relative z-50 sticky top-0 px-6 py-4">
         <div class="max-w-7xl mx-auto">
-            <div class="glass flex items-center justify-between px-8 py-4 rounded-[2rem] shadow-xl shadow-slate-200/50">
+            <div class="flex items-center justify-between px-8 py-4 rounded-[2rem] shadow-xl text-white transition-colors duration-500" style="background: linear-gradient(to right, var(--color-bps-blue), var(--color-bps-green)); box-shadow: 0 20px 60px color-mix(in srgb, var(--color-bps-blue), transparent 70%)">
                 <div class="flex items-center gap-4 group cursor-pointer" onclick="window.location.href='/'">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo BPS" class="h-8 w-auto">
-                    <div class="border-l-2 border-slate-200 pl-4">
-                        <span class="block text-sm font-black text-bps-blue uppercase tracking-tighter leading-none mb-0.5">PORTAL TERPADU</span>
-                        <span class="block text-[8px] font-bold text-slate-500 uppercase tracking-[0.2em] opacity-70">BPS Kabupaten Demak</span>
+                    <div class="bg-white p-1.5 rounded-xl shadow-sm">
+                        <img src="{{ $microsite->logo_path ? asset('storage/' . $microsite->logo_path) : asset('images/logo.png') }}" alt="Logo {{ $microsite->title }}" class="h-8 w-auto">
+                    </div>
+                    <div class="border-l-2 border-white/30 pl-4">
+                        <span class="block text-sm font-black text-white uppercase tracking-tighter leading-none mb-0.5" style="text-shadow: 0 2px 4px rgba(0,0,0,0.1);">PORTAL TERPADU</span>
+                        <span class="block text-[8px] font-bold text-white/80 uppercase tracking-[0.2em]">BPS Kabupaten Demak</span>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-6">
                     <button onclick="shareMicrosite()"
-                        class="px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all duration-300 flex items-center gap-2 active:scale-95 shadow-sm">
+                        class="px-5 py-2.5 rounded-xl text-xs font-bold bg-white hover:bg-slate-100 border border-white/20 backdrop-blur-sm transition-all duration-300 flex items-center gap-2 active:scale-95 shadow-sm"
+                        style="color: var(--color-bps-blue)">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                 d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -68,7 +79,7 @@
                         <span class="hidden sm:inline">Share</span>
                     </button>
                     @auth
-                        <a href="{{ url('/admin') }}" class="btn-primary !px-5 !py-2.5 !text-xs">Manage</a>
+                        <a href="{{ url('/admin') }}" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-white text-bps-blue hover:bg-slate-50 transition-all duration-300 active:scale-95 shadow-sm">Manage</a>
                     @endauth
                 </div>
             </div>
@@ -132,11 +143,11 @@
         <div class="max-w-7xl mx-auto px-6 py-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="flex items-center gap-4">
                 <div class="p-2 bg-white rounded-xl shadow-lg">
-                    <img src="{{ asset('images/logo.png') }}" class="h-8 w-auto" alt="Logo Footer">
+                    <img src="{{ $microsite->logo_path ? asset('storage/' . $microsite->logo_path) : asset('images/logo.png') }}" class="h-8 w-auto" alt="Logo {{ $microsite->title }}">
                 </div>
                 <div>
-                   <h4 class="text-sm font-black tracking-tighter leading-none mb-1">BPS KABUPATEN</h4>
-                   <h4 class="text-sm font-black tracking-tighter text-bps-blue leading-none uppercase">DEMAK</h4>
+                   <h4 class="text-sm font-black tracking-tighter leading-none mb-1">BADAN PUSAT STATISTIK</h4>
+                   <h4 class="text-sm font-black tracking-tighter text-bps-blue leading-none uppercase">KABUPATEN DEMAK</h4>
                 </div>
             </div>
 
