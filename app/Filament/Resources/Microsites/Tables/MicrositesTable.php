@@ -11,7 +11,6 @@ use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -31,20 +30,36 @@ class MicrositesTable
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('template_key')
-                    ->badge(),
-                ColorColumn::make('theme_color'),
-                ColorColumn::make('accent_color'),
-                ImageColumn::make('logo_path')->circular(),
+                ColorColumn::make('theme_color')
+                    ->action(
+                        Action::make('edit_theme_color')
+                            ->form([
+                                \Filament\Forms\Components\ColorPicker::make('theme_color')
+                                    ->required(),
+                            ])
+                            ->fillForm(fn (Microsite $record): array => [
+                                'theme_color' => $record->theme_color,
+                            ])
+                            ->action(function (Microsite $record, array $data): void {
+                                $record->update($data);
+                            })
+                    ),
+                ColorColumn::make('accent_color')
+                    ->action(
+                        Action::make('edit_accent_color')
+                            ->form([
+                                \Filament\Forms\Components\ColorPicker::make('accent_color')
+                                    ->required(),
+                            ])
+                            ->fillForm(fn (Microsite $record): array => [
+                                'accent_color' => $record->accent_color,
+                            ])
+                            ->action(function (Microsite $record, array $data): void {
+                                $record->update($data);
+                            })
+                    ),
                 IconColumn::make('is_published')
                     ->boolean(),
-                TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('meta_title')
-                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

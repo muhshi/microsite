@@ -75,6 +75,8 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-04-22
+- **UX Improvement:** Simplified the Microsite admin table by removing redundant columns (`slug`, `template_key`, `logo_path`, `published_at`, and `meta_title`) to focus on key information.
+- **UI Enhancement:** Added inline color editing for `theme_color` and `accent_color` directly from the Filament table via modal actions, allowing for faster branding updates.
 - **Bug Fix:** Fixed `MassAssignmentException` across all models (`Category`, `Microsite`, `MicrositeSection`, `MicrositeLink`, `ShortLink`, `User`) by replacing the experimental `#[Fillable]` and `#[Hidden]` attributes with the standard `$fillable` and `$hidden` properties.
 - **UI Fix:** Updated the microsite footer to always use the default BPS logo, ensuring consistent branding regardless of the user-uploaded logo used in the header.
 - **Docker Fix:** Switched to a more robust Node.js installation method by copying from the official Node image. This resolves "npm not found" issues caused by inconsistent package manager behavior in different environments.
