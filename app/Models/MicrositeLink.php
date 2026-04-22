@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable([
-    'microsite_id',
-    'section_id',
-    'parent_id',
-    'title',
-    'url',
-    'icon',
-    'badge_text',
-    'order',
-    'is_active',
-])]
 class MicrositeLink extends Model
 {
+    protected $fillable = [
+        'microsite_id',
+        'section_id',
+        'parent_id',
+        'title',
+        'url',
+        'icon',
+        'badge_text',
+        'order',
+        'is_active',
+    ];
+
     protected function casts(): array
     {
         return [

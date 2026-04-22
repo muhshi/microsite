@@ -3,20 +3,20 @@
 namespace App\Models;
 
 use Database\Factories\ShortLinkFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-#[Fillable([
-    'code',
-    'original_url',
-    'clicks',
-    'is_active',
-    'expires_at',
-])]
 class ShortLink extends Model
 {
+    protected $fillable = [
+        'code',
+        'original_url',
+        'clicks',
+        'is_active',
+        'expires_at',
+    ];
+
     /** @use HasFactory<ShortLinkFactory> */
     use HasFactory;
 
