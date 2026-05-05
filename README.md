@@ -86,7 +86,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 - **Added:** Integrated **SIPETRA SSO** (OAuth2) for centralized authentication using accounts from BPS Kabupaten Demak.
 - **Added:** Custom `SipetraSocialiteProvider` to handle OAuth2 flows with the centralized identity provider.
 - **Added:** Premium SSO login button in the Filament admin panel using render hooks and modern UI styling.
-- **Changed:** Updated `User` model and database schema to support SSO identifiers (`sipetra_id`), tokens, and employee metadata (`nip`, `jabatan`).
+- **Changed:** Updated `User` model and database schema to support SSO identifiers (`sipetra_id`), tokens, and employee metadata (`nip`, `jabatan`). Made `password` column nullable to allow SSO-only accounts.
 - **Dependencies:** Added `laravel/socialite` for robust OAuth2 integration.
 
 ### 2026-04-22
