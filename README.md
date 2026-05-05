@@ -76,6 +76,8 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-05-05
+- **Fixed:** Updated `SsoController` to use the correct Filament login route name (`filament.admin.auth.login`) to prevent `RouteNotFoundException` during SSO errors.
+- **Fixed:** Corrected `SIPETRA_BASE_URL` to `https://portal.bpsdemak.com` in `.env` and added placeholders for `CLIENT_ID` and `CLIENT_SECRET`.
 - **Added:** Integrated **SIPETRA SSO** (OAuth2) for centralized authentication using accounts from BPS Kabupaten Demak.
 - **Added:** Custom `SipetraSocialiteProvider` to handle OAuth2 flows with the centralized identity provider.
 - **Added:** Premium SSO login button in the Filament admin panel using render hooks and modern UI styling.
