@@ -8,7 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/auth/sipetra/redirect', [SsoController::class, 'redirect'])->name('login')->name('sipetra.login');
+Route::get('/login', [SsoController::class, 'redirect'])->name('login');
+Route::get('/auth/sipetra/redirect', [SsoController::class, 'redirect'])->name('sipetra.login');
 Route::get('/auth/sipetra/callback', [SsoController::class, 'callback']);
 
 Route::get('/{code}', [RedirectController::class, 'handle'])
