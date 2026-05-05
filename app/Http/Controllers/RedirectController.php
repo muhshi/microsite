@@ -39,6 +39,10 @@ class RedirectController extends Controller
             ->first();
 
         if ($microsite) {
+            if (! $microsite->is_public && ! auth()->check()) {
+                return redirect()->guest(route('login'));
+            }
+
             $template = $microsite->template_key ?? 'minimal-grid';
 
             if (! view()->exists("templates.{$template}")) {
