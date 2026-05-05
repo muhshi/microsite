@@ -76,6 +76,10 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-05-05
+- **Added:** **Microsite Access Control**. Microsites can now be configured as "Public" or "Restricted" (logged-in users only).
+- **Added:** Toggle `is_public` in the Microsite Filament Resource to manage access.
+- **Fixed:** Enforced access checks in `MicrositeController`. Restricted microsites now redirect unauthenticated users to the login page.
+- **Fixed:** Defined `login` route alias for the SIPETRA SSO redirect to handle automatic authentication redirects.
 - **Fixed:** Updated `SsoController` to use the correct Filament login route name (`filament.admin.auth.login`) to prevent `RouteNotFoundException` during SSO errors.
 - **Fixed:** Corrected `SIPETRA_BASE_URL` to `https://portal.bpsdemak.com` in `.env` and added placeholders for `CLIENT_ID` and `CLIENT_SECRET`.
 - **Added:** Integrated **SIPETRA SSO** (OAuth2) for centralized authentication using accounts from BPS Kabupaten Demak.

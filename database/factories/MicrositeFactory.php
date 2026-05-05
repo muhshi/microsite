@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Microsite;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,7 @@ class MicrositeFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => \App\Models\Category::factory(),
+            'category_id' => Category::factory(),
             'title' => fake()->sentence(3),
             'slug' => fake()->unique()->slug(),
             'description' => fake()->paragraph(),
@@ -27,6 +28,7 @@ class MicrositeFactory extends Factory
             'template_key' => 'minimal-grid',
             'layout_type' => 'grid',
             'is_published' => true,
+            'is_public' => true,
             'published_at' => fake()->dateTime(),
             'theme_color' => '#10b981',
             'accent_color' => '#059669',

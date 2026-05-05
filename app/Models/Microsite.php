@@ -29,6 +29,7 @@ class Microsite extends Model
         'meta_title',
         'meta_description',
         'og_image_path',
+        'is_public',
     ];
 
     /** @use HasFactory<MicrositeFactory> */
@@ -38,6 +39,7 @@ class Microsite extends Model
     {
         return [
             'is_published' => 'boolean',
+            'is_public' => 'boolean',
             'published_at' => 'datetime',
         ];
     }

@@ -23,6 +23,10 @@ class MicrositeController extends Controller
             ->where('is_published', true)
             ->firstOrFail();
 
+        if (! $microsite->is_public && ! auth()->check()) {
+            return redirect()->guest(route('login'));
+        }
+
         $template = $microsite->template_key ?? 'minimal-grid';
 
         if (! view()->exists("templates.{$template}")) {

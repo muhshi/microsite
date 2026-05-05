@@ -9,6 +9,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -34,7 +35,7 @@ class MicrositesTable
                     ->action(
                         Action::make('edit_theme_color')
                             ->form([
-                                \Filament\Forms\Components\ColorPicker::make('theme_color')
+                                ColorPicker::make('theme_color')
                                     ->required(),
                             ])
                             ->fillForm(fn (Microsite $record): array => [
@@ -48,7 +49,7 @@ class MicrositesTable
                     ->action(
                         Action::make('edit_accent_color')
                             ->form([
-                                \Filament\Forms\Components\ColorPicker::make('accent_color')
+                                ColorPicker::make('accent_color')
                                     ->required(),
                             ])
                             ->fillForm(fn (Microsite $record): array => [
@@ -59,6 +60,9 @@ class MicrositesTable
                             })
                     ),
                 IconColumn::make('is_published')
+                    ->boolean(),
+                IconColumn::make('is_public')
+                    ->label('Public')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()

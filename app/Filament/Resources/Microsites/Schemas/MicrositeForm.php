@@ -57,6 +57,11 @@ class MicrositeForm
                         Toggle::make('is_published')
                             ->default(true)
                             ->required(),
+                        Toggle::make('is_public')
+                            ->label('Public Access')
+                            ->helperText('If disabled, only logged-in users can access this microsite.')
+                            ->default(true)
+                            ->required(),
                     ])->columns(2),
 
                 Section::make('Design & Branding')
