@@ -12,6 +12,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 - **Custom Icon Picker:** A performant, built-in icon picker modal with 3 icon sets (Heroicons, Font Awesome, Phosphor Icons), tab navigation, search filtering, and one-click selection.
 - **Automated SEO:** Automatically generates fallback meta titles, descriptions, and OpenGraph social share images based on the microsite's content and logo.
 - **Web Share API Integration:** Native sharing capabilities for mobile users and fallback clipboard-copy for desktop.
+- **SIPETRA SSO Integration:** Secure Single Sign-On using the BPS Kabupaten Demak centralized authentication system (OAuth2).
 - **Modern UI Styling:** Beautiful gradient backgrounds, Tailwind CSS utility classes, and glassmorphism touches.
 - **Dynamic Theming:** Select Theme and Accent colors right from the admin dashboard.
 
@@ -73,6 +74,13 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 - `minimal-grid`: A clean, centrally-aligned layout perfect for event link-trees, featuring dynamic branding colors. 
 
 ## 📋 Changelog
+
+### 2026-05-05
+- **Added:** Integrated **SIPETRA SSO** (OAuth2) for centralized authentication using accounts from BPS Kabupaten Demak.
+- **Added:** Custom `SipetraSocialiteProvider` to handle OAuth2 flows with the centralized identity provider.
+- **Added:** Premium SSO login button in the Filament admin panel using render hooks and modern UI styling.
+- **Changed:** Updated `User` model and database schema to support SSO identifiers (`sipetra_id`), tokens, and employee metadata (`nip`, `jabatan`).
+- **Dependencies:** Added `laravel/socialite` for robust OAuth2 integration.
 
 ### 2026-04-22
 - **UX Improvement:** Simplified the Microsite admin table by removing redundant columns (`slug`, `template_key`, `logo_path`, `published_at`, and `meta_title`) to focus on key information.

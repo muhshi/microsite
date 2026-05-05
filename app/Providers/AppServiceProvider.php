@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Socialite\Contracts\Factory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +24,12 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') !== 'local') {
             URL::forceScheme('https');
         }
+
+        $socialite = $this->app->make(Factory::class);
+        $socialite->extend('sipetra', function ($app) use ($socialite) {
+            $config = $app['config']['services.sipetra'];
+
+            return $socialite->buildProvider(SipetraSocialiteProvider::class, $config);
+        });
     }
 }
