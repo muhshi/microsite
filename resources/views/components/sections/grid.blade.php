@@ -1,10 +1,19 @@
 @php
-    $columns = $section->config['columns'] ?? $microsite->layout_type === 'list' ? 1 : 3;
-    $gridClass = match ((int) $columns) {
-        1 => 'grid-cols-1 max-w-3xl mx-auto',
-        2 => 'grid-cols-1 sm:grid-cols-2 max-w-4xl mx-auto',
-        4 => 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
-        default => 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+    $columns = $section->config['columns'] ?? ($microsite->layout_type === 'list' ? 1 : 3);
+    
+    // Container-level max-width limits
+    $containerClass = match ((int) $columns) {
+        1 => 'max-w-3xl mx-auto',
+        2 => 'max-w-4xl mx-auto',
+        default => 'max-w-6xl mx-auto',
+    };
+
+    // Item-level width styling to make sure cards remain consistent in size and center leftovers
+    $itemClass = match ((int) $columns) {
+        1 => 'w-full',
+        2 => 'w-full sm:w-[calc(50%-12px)]',
+        4 => 'w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]',
+        default => 'w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]', // 3 columns
     };
 @endphp
 
@@ -31,11 +40,11 @@
     @endif
 
     {{-- Links Grid --}}
-    <div x-show="sectionOpen" x-collapse.duration.400ms class="grid gap-4 sm:gap-6 {{ $gridClass }}">
+    <div x-show="sectionOpen" x-collapse.duration.400ms class="flex flex-wrap justify-center gap-4 sm:gap-6 w-full {{ $containerClass }}">
         @foreach($section->links as $link)
             @if($link->children && $link->children->count() > 0)
                 {{-- Parent Link — Collapsible Card --}}
-                <div x-data="{ childOpen: false }" class="glass-card rounded-2xl overflow-hidden">
+                <div x-data="{ childOpen: false }" class="glass-card rounded-2xl overflow-hidden {{ $itemClass }}">
                     <button @click="childOpen = !childOpen"
                         class="w-full p-6 sm:p-8 flex flex-col items-center text-center gap-4 cursor-pointer group">
 
@@ -96,7 +105,7 @@
             @else
                 {{-- Regular Link Card --}}
                 <a href="{{ $link->url }}"
-                    class="block glass-card rounded-2xl p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300 group"
+                    class="block glass-card rounded-2xl p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300 group {{ $itemClass }}"
                     target="_blank" rel="noopener">
 
                     <div class="flex flex-col items-center text-center gap-4">
