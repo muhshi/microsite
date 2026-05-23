@@ -16,6 +16,8 @@ class ActiveMicrositesTable extends TableWidget
 
     protected int|string|array $columnSpan = 'full';
 
+    protected static ?int $sort = 2;
+
     public function table(Table $table): Table
     {
         return $table
@@ -43,7 +45,8 @@ class ActiveMicrositesTable extends TableWidget
                     ->falseIcon('heroicon-o-lock-closed')
                     ->trueColor('success')
                     ->falseColor('danger')
-                    ->tooltip(fn (bool $state): string => $state ? 'Terbuka untuk Publik' : 'Terbatas (BPS SSO)'),
+                    ->tooltip(fn (bool $state): string => $state ? 'Terbuka untuk Publik' : 'Terbatas (BPS SSO)')
+                    ->alignCenter(),
 
                 TextColumn::make('start_date')
                     ->label('Periode Aktif')
