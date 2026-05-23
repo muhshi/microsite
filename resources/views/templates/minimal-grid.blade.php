@@ -112,6 +112,44 @@
         <div class="w-24 h-1.5 bg-gradient-to-r from-bps-blue via-bps-green to-bps-orange mx-auto mt-12 rounded-full opacity-50"></div>
     </header>
 
+    @if($microsite->category)
+        @php
+            $siblings = \App\Models\Microsite::where('category_id', $microsite->category_id)
+                ->where('is_published', true)
+                ->orderBy('start_date', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        @endphp
+
+        @if($siblings->count() > 1)
+            <div class="relative z-20 max-w-6xl mx-auto px-6 mb-8 -mt-2 flex justify-center reveal">
+                <div class="inline-flex p-1.5 bg-slate-200/40 dark:bg-slate-900/5 backdrop-blur-md rounded-2xl border border-slate-900/10">
+                    @foreach($siblings as $sibling)
+                        @php
+                            $siblingYear = $sibling->start_date 
+                                ? date('Y', strtotime($sibling->start_date)) 
+                                : $sibling->created_at->format('Y');
+                            $isActive = $sibling->id === $microsite->id;
+                        @endphp
+                        
+                        <a href="{{ route('redirect.handle', $sibling->slug) }}" 
+                           class="px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-1.5 {{ $isActive 
+                                ? 'bg-white shadow-md' 
+                                : 'text-slate-500 hover:text-slate-800 hover:bg-white/40' }}"
+                           @if($isActive) style="color: var(--primary);" @endif>
+                            
+                            @if($isActive)
+                                <span class="h-2 w-2 rounded-full" style="background-color: var(--accent);"></span>
+                            @endif
+                            
+                            Tahun {{ $siblingYear }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+    @endif
+
     <!-- Dynamic Sections -->
     <main class="relative z-10 flex-grow pb-24 px-6 reveal">
         <div class="max-w-6xl mx-auto flex flex-col gap-16">

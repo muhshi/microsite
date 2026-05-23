@@ -75,6 +75,11 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 
 ## 📋 Changelog
 
+### 2026-05-23
+- **Added:** **Hybrid Series Portal Versioning**. Published microsites sharing the same category now dynamically render premium year selector tabs (`Tahun YYYY`) at the top of the portal, using dynamic primary and accent branding colors.
+- **Added:** **Microsite Cloning (Duplication)**. Admin can now duplicate any microsite from the Filament table with a single click. The action clones the microsite, its sections, and nested parent-child link hierarchies perfectly while maintaining clean independent slugs and drafts.
+- **Added:** **Feature Tests**. Added programmatic tests for dynamic sibling year tabs rendering and deep duplication validation with Pest.
+
 ### 2026-05-05
 - **Added:** **Microsite Access Control**. Microsites can now be configured as "Public" or "Restricted" (logged-in users only).
 - **Added:** Toggle `is_public` in the Microsite Filament Resource to manage access.

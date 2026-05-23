@@ -10,11 +10,13 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\ColorPicker;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class MicrositesTable
 {
@@ -87,6 +89,52 @@ class MicrositesTable
                     ->url(fn (Microsite $record): string => route('redirect.handle', $record->slug))
                     ->openUrlInNewTab()
                     ->visible(fn (Microsite $record): bool => $record->is_published),
+                Action::make('duplicate')
+                    ->label('Duplicate')
+                    ->icon('heroicon-o-document-duplicate')
+                    ->color('info')
+                    ->requiresConfirmation()
+                    ->tooltip('Duplikasi microsite ini beserta seluruh seksi & link di dalamnya')
+                    ->action(function (Microsite $record): void {
+                        // 1. Duplikasi data utama microsite
+                        $newMicrosite = $record->replicate();
+                        $newMicrosite->title = $record->title.' (Copy)';
+                        $newMicrosite->slug = $record->slug.'-'.Str::lower(Str::random(4));
+                        $newMicrosite->is_published = false; // default draft
+                        $newMicrosite->save();
+
+                        // 2. Duplikasi seksi-seksinya
+                        foreach ($record->sections as $section) {
+                            $newSection = $section->replicate();
+                            $newSection->microsite_id = $newMicrosite->id;
+                            $newSection->save();
+
+                            // Ambil semua parent link di seksi ini (parent_id = null)
+                            $parentLinks = $section->links()->whereNull('parent_id')->get();
+
+                            foreach ($parentLinks as $link) {
+                                // Duplikasi parent link
+                                $newLink = $link->replicate();
+                                $newLink->microsite_id = $newMicrosite->id;
+                                $newLink->section_id = $newSection->id;
+                                $newLink->save();
+
+                                // Duplikasi child link di bawah parent ini
+                                foreach ($link->children as $child) {
+                                    $newChild = $child->replicate();
+                                    $newChild->microsite_id = $newMicrosite->id;
+                                    $newChild->section_id = $newSection->id;
+                                    $newChild->parent_id = $newLink->id; // pasang ke parent baru
+                                    $newChild->save();
+                                }
+                            }
+                        }
+
+                        Notification::make()
+                            ->title('Microsite berhasil diduplikasi!')
+                            ->success()
+                            ->send();
+                    }),
                 EditAction::make(),
             ])
             ->toolbarActions([
