@@ -24,7 +24,8 @@ class SsoController extends Controller
         try {
             $ssoUser = Socialite::driver('sipetra')->user();
         } catch (\Exception $e) {
-            return redirect()->route('filament.admin.auth.login')->with('error', 'Gagal mengambil data user');
+            dd('SSO EXCEPTION:', $e->getMessage(), $e->getTraceAsString());
+            // return redirect()->route('filament.admin.auth.login')->with('error', 'Gagal mengambil data user');
         }
 
         $rawData = $ssoUser->getRaw();
