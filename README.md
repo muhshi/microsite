@@ -75,6 +75,11 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 
 ## 📋 Changelog
 
+### 2026-05-28
+- **Fixed:** **Dynamic Link Scope Filtering in MicrositeBuilder**. Scoped the parent link dropdown selection in `MicrositeForm` to only show links belonging to the specific microsite being edited.
+- **Changed:** **Dependent Form Fields in LinkManager**. Made parent link and section selection fields in `LinkForm` dependent on the selected microsite. Choosing a microsite dynamically filters options to show only its sections and parent links, while choosing no microsite displays an empty list.
+- **Added:** **Feature Tests**. Created `LinkSelectionTest` to programmatically verify dynamic scope filtering in both the Microsite Builder and the standalone Link Manager.
+
 ### 2026-05-23
 - **Added:** **Hybrid Series Portal Versioning**. Published microsites sharing the same category now dynamically render premium year selector tabs (`Tahun YYYY`) at the top of the portal, sorted chronologically (oldest on the left, newest on the right) using dynamic primary and accent branding colors.
 - **Added:** **Microsite Cloning (Duplication)**. Admin can now duplicate any microsite from the Filament table with a single click. The action clones the microsite, its sections, and nested parent-child link hierarchies perfectly while maintaining clean independent slugs and drafts.

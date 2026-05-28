@@ -7,6 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -53,10 +54,20 @@ class LinkForm
                             ->relationship('microsite', 'title')
                             ->searchable()
                             ->preload()
-                            ->placeholder('Pilih Microsite (opsional)'),
+                            ->placeholder('Pilih Microsite (opsional)')
+                            ->live(),
                         Select::make('section_id')
                             ->label('Section')
-                            ->relationship('section', 'type')
+                            ->relationship(
+                                'section',
+                                'type',
+                                modifyQueryUsing: fn (Builder $query, Get $get): Builder => $query
+                                    ->when(
+                                        $get('microsite_id'),
+                                        fn ($q, $micrositeId) => $q->where('microsite_id', $micrositeId),
+                                        fn ($q) => $q->whereNull('id')
+                                    ),
+                            )
                             ->searchable()
                             ->preload()
                             ->placeholder('Pilih Section (opsional)'),
@@ -65,9 +76,14 @@ class LinkForm
                             ->relationship(
                                 'parent',
                                 'title',
-                                modifyQueryUsing: fn (Builder $query, ?Model $record) => $query
+                                modifyQueryUsing: fn (Builder $query, ?Model $record, Get $get): Builder => $query
                                     ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
-                                    ->whereNull('parent_id'),
+                                    ->whereNull('parent_id')
+                                    ->when(
+                                        $get('microsite_id'),
+                                        fn ($q, $micrositeId) => $q->where('microsite_id', $micrositeId),
+                                        fn ($q) => $q->whereNull('id')
+                                    ),
                             )
                             ->searchable()
                             ->preload()

@@ -136,9 +136,14 @@ class MicrositeForm
                                             ->relationship(
                                                 'parent',
                                                 'title',
-                                                modifyQueryUsing: fn (Builder $query, ?Model $record) => $query
+                                                modifyQueryUsing: fn (Builder $query, ?Model $record, $livewire): Builder => $query
                                                     ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
-                                                    ->whereNull('parent_id'),
+                                                    ->whereNull('parent_id')
+                                                    ->when(
+                                                        isset($livewire->record) && $livewire->record->exists,
+                                                        fn ($q) => $q->where('microsite_id', $livewire->record->id),
+                                                        fn ($q) => $q->whereNull('id')
+                                                    ),
                                             )
                                             ->searchable()
                                             ->preload()
