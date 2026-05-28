@@ -76,7 +76,7 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-05-28
-- **Changed:** **Automated Slug Generation**. Removed the `slug` input fields from `Category`, `Series`, and `Microsite` forms (including inline creation modals). Slugs are now generated automatically by the Eloquent models' `saving` events, simplifying the admin panel UI.
+- **Changed:** **Automated Slug Generation**. Removed the `slug` input fields from `Category`, `Series`, and `Microsite` forms (including inline creation modals) to simplify the admin panel UI. Slugs are now automatically generated via a reusable `HasSlug` model Trait hooked into the Eloquent `saving` event.
 - **Added:** **Series-Based Grouping for Sibling Year Tabs**. Introduced a new `Series` model and migrations to group portal versions chronologically (e.g., annual surveys like Sakernas). This replaces category-based grouping, resolving duplication and cross-linking issues.
 - **Added:** **Series Management and Form Integration**. Added a dedicated `SeriesResource` in the admin panel and integrated the `series_id` selection field into the general settings of `MicrositeForm` with dynamic inline option creation.
 - **Fixed:** **Dynamic Link Scope Filtering in MicrositeBuilder**. Scoped the parent link dropdown selection in `MicrositeForm` to only show links belonging to the specific microsite being edited.

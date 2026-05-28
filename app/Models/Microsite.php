@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-use Database\Factories\MicrositeFactory;
+use App\Models\Concerns\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Microsite extends Model
 {
+    use HasFactory, HasSlug, SoftDeletes;
+
+    protected string $slugSource = 'title';
+
     protected $fillable = [
         'category_id',
         'series_id',
@@ -34,9 +38,6 @@ class Microsite extends Model
         'is_public',
     ];
 
-    /** @use HasFactory<MicrositeFactory> */
-    use HasFactory, \Illuminate\Database\Eloquent\SoftDeletes;
-
     protected function casts(): array
     {
         return [
@@ -54,15 +55,6 @@ class Microsite extends Model
     public function links(): HasMany
     {
         return $this->hasMany(MicrositeLink::class)->orderBy('order');
-    }
-
-    protected static function booted(): void
-    {
-        static::saving(function (Microsite $microsite) {
-            if (empty($microsite->slug)) {
-                $microsite->slug = Str::slug($microsite->title);
-            }
-        });
     }
 
     public function category(): BelongsTo
