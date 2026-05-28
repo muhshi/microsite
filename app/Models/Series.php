@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Series extends Model
 {
@@ -16,6 +17,15 @@ class Series extends Model
         'slug',
         'description',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (Series $series) {
+            if (empty($series->slug)) {
+                $series->slug = Str::slug($series->name);
+            }
+        });
+    }
 
     public function microsites(): HasMany
     {

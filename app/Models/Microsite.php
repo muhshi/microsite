@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Microsite extends Model
 {
@@ -53,6 +54,15 @@ class Microsite extends Model
     public function links(): HasMany
     {
         return $this->hasMany(MicrositeLink::class)->orderBy('order');
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Microsite $microsite) {
+            if (empty($microsite->slug)) {
+                $microsite->slug = Str::slug($microsite->title);
+            }
+        });
     }
 
     public function category(): BelongsTo

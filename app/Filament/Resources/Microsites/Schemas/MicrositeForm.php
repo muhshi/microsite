@@ -13,12 +13,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class MicrositeForm
 {
@@ -35,12 +33,7 @@ class MicrositeForm
                             ->preload()
                             ->createOptionForm([
                                 TextInput::make('name')
-                                    ->required()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $operation, $state, Set $set) => $set('slug', Str::slug($state))),
-                                TextInput::make('slug')
-                                    ->required()
-                                    ->unique('categories', 'slug'),
+                                    ->required(),
                             ]),
 
                         Select::make('series_id')
@@ -52,21 +45,11 @@ class MicrositeForm
                             ->helperText('Gunakan untuk mengelompokkan microsite dalam satu seri lintas tahun (misal: Sakernas).')
                             ->createOptionForm([
                                 TextInput::make('name')
-                                    ->required()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $operation, $state, Set $set) => $set('slug', Str::slug($state))),
-                                TextInput::make('slug')
-                                    ->required()
-                                    ->unique('series', 'slug'),
+                                    ->required(),
                             ]),
 
                         TextInput::make('title')
-                            ->required()
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
-                        TextInput::make('slug')
-                            ->required()
-                            ->unique(ignoreRecord: true),
+                            ->required(),
                         Textarea::make('description')
                             ->columnSpanFull(),
                         DatePicker::make('start_date'),
