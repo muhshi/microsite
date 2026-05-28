@@ -39,7 +39,7 @@ class LinkForm
                                     ->modalHeading('Select Icon')
                                     ->modalIcon(false)
                                     ->modalWidth('4xl')
-                                    ->modalContent(fn ($component): View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
+                                    ->modalContent(fn($component): View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
                                     ->modalSubmitAction(false)
                                     ->modalCancelAction(false)
                             ),
@@ -61,11 +61,11 @@ class LinkForm
                             ->relationship(
                                 'section',
                                 'type',
-                                modifyQueryUsing: fn (Builder $query, Get $get) => $query
+                                modifyQueryUsing: fn(Builder $query, Get $get): Builder => $query
                                     ->when(
                                         $get('microsite_id'),
-                                        fn ($q, $micrositeId) => $q->where('microsite_id', $micrositeId),
-                                        fn ($q) => $q->whereNull('id')
+                                        fn($q, $micrositeId) => $q->where('microsite_id', $micrositeId),
+                                        fn($q) => $q->whereNull('id')
                                     ),
                             )
                             ->searchable()
@@ -76,13 +76,13 @@ class LinkForm
                             ->relationship(
                                 'parent',
                                 'title',
-                                modifyQueryUsing: fn (Builder $query, ?Model $record, Get $get) => $query
-                                    ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
+                                modifyQueryUsing: fn(Builder $query, ?Model $record, Get $get): Builder => $query
+                                    ->when($record, fn($q) => $q->where('id', '!=', $record->getKey()))
                                     ->whereNull('parent_id')
                                     ->when(
                                         $get('microsite_id'),
-                                        fn ($q, $micrositeId) => $q->where('microsite_id', $micrositeId),
-                                        fn ($q) => $q->whereNull('id')
+                                        fn($q, $micrositeId) => $q->where('microsite_id', $micrositeId),
+                                        fn($q) => $q->whereNull('id')
                                     ),
                             )
                             ->searchable()
