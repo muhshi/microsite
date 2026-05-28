@@ -41,6 +41,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## Application Structure & Architecture
 
+- **IMPORTANT:** Before making any changes, read `CODEBASE.md` at the project root. It documents all models, relations, Filament resources, form schemas, routing logic, traits, and conventions for this project.
 - Stick to existing directory structure; don't create new base folders without approval.
 - Do not change the application's dependencies without approval.
 

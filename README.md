@@ -2,6 +2,8 @@
 
 A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5. This application allows administrators to instantly generate beautiful, customizable landing pages for various government activities, training events, surveys, and integrity zones without writing any code.
 
+> **For AI Assistants:** Read [`CODEBASE.md`](./CODEBASE.md) before making any changes. It contains a comprehensive reference of all models, relations, Filament resources, form schemas, routing logic, and code conventions specific to this project.
+
 ## 🚀 Key Features
 
 - **Dynamic Microsite Generation:** Create distinct landing pages mapped to unique slugs (e.g., `/event-name`).
@@ -74,6 +76,9 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 - `minimal-grid`: A clean, centrally-aligned layout perfect for event link-trees, featuring dynamic branding colors. 
 
 ## 📋 Changelog
+
+### 2026-05-28 (2)
+- **Added:** **`CODEBASE.md` — Comprehensive AI Reference**. Created a detailed codebase reference document (`CODEBASE.md`) that covers all models, relations, Filament resources, form schemas, routing logic, traits, widgets, testing conventions, and deployment procedures. Updated `GEMINI.md`, `CLAUDE.md`, and `README.md` to point AI assistants to this document before making changes. Upgraded Docker base image to PHP 8.4 (`dunglas/frankenphp:php8.4`) to resolve Symfony 8 dependency requirement.
 
 ### 2026-05-28
 - **Changed:** **Automated Slug Generation**. Removed the `slug` input fields from `Category`, `Series`, and `Microsite` forms (including inline creation modals) to simplify the admin panel UI. Slugs are now automatically generated via a reusable `HasSlug` model Trait hooked into the Eloquent `saving` event.
