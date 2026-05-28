@@ -136,7 +136,7 @@ class MicrositeForm
                                             ->relationship(
                                                 'parent',
                                                 'title',
-                                                modifyQueryUsing: fn (Builder $query, ?Model $record, $livewire): Builder => $query
+                                                modifyQueryUsing: fn (Builder $query, ?Model $record, $livewire) => $query
                                                     ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
                                                     ->whereNull('parent_id')
                                                     ->when(

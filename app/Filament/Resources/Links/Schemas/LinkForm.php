@@ -61,7 +61,7 @@ class LinkForm
                             ->relationship(
                                 'section',
                                 'type',
-                                modifyQueryUsing: fn (Builder $query, Get $get): Builder => $query
+                                modifyQueryUsing: fn (Builder $query, Get $get) => $query
                                     ->when(
                                         $get('microsite_id'),
                                         fn ($q, $micrositeId) => $q->where('microsite_id', $micrositeId),
@@ -76,7 +76,7 @@ class LinkForm
                             ->relationship(
                                 'parent',
                                 'title',
-                                modifyQueryUsing: fn (Builder $query, ?Model $record, Get $get): Builder => $query
+                                modifyQueryUsing: fn (Builder $query, ?Model $record, Get $get) => $query
                                     ->when($record, fn ($q) => $q->where('id', '!=', $record->getKey()))
                                     ->whereNull('parent_id')
                                     ->when(
