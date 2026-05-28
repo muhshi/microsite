@@ -112,9 +112,9 @@
         <div class="w-24 h-1.5 bg-gradient-to-r from-bps-blue via-bps-green to-bps-orange mx-auto mt-12 rounded-full opacity-50"></div>
     </header>
 
-    @if($microsite->category)
+    @if($microsite->series_id)
         @php
-            $siblings = \App\Models\Microsite::where('category_id', $microsite->category_id)
+            $siblings = \App\Models\Microsite::where('series_id', $microsite->series_id)
                 ->where('is_published', true)
                 ->orderBy('start_date', 'asc')
                 ->orderBy('created_at', 'asc')

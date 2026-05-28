@@ -12,6 +12,7 @@ class Microsite extends Model
 {
     protected $fillable = [
         'category_id',
+        'series_id',
         'title',
         'slug',
         'description',
@@ -57,5 +58,10 @@ class Microsite extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function series(): BelongsTo
+    {
+        return $this->belongsTo(Series::class);
     }
 }

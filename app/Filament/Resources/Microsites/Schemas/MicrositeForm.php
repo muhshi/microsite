@@ -43,6 +43,23 @@ class MicrositeForm
                                     ->unique('categories', 'slug'),
                             ]),
 
+                        Select::make('series_id')
+                            ->label('Series (opsional)')
+                            ->relationship('series', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->placeholder('Pilih Seri/Portal')
+                            ->helperText('Gunakan untuk mengelompokkan microsite dalam satu seri lintas tahun (misal: Sakernas).')
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (string $operation, $state, Set $set) => $set('slug', Str::slug($state))),
+                                TextInput::make('slug')
+                                    ->required()
+                                    ->unique('series', 'slug'),
+                            ]),
+
                         TextInput::make('title')
                             ->required()
                             ->live(onBlur: true)

@@ -4,6 +4,7 @@ use App\Models\Category;
 use App\Models\Microsite;
 use App\Models\MicrositeLink;
 use App\Models\MicrositeSection;
+use App\Models\Series;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -36,11 +37,16 @@ it('returns 200 and correct template if microsite is published', function () {
     $response->assertSee($microsite->title);
 });
 
-it('renders sibling year tabs when multiple published microsites share a category', function () {
+it('renders sibling year tabs when multiple published microsites share a series', function () {
     $category = Category::factory()->create();
+    $series = Series::create([
+        'name' => 'Sektoral Portal',
+        'slug' => 'sektoral-portal',
+    ]);
 
     $microsite1 = Microsite::factory()->create([
         'category_id' => $category->id,
+        'series_id' => $series->id,
         'slug' => 'sektoral-2025',
         'is_published' => true,
         'start_date' => '2025-01-01',
@@ -48,6 +54,7 @@ it('renders sibling year tabs when multiple published microsites share a categor
 
     $microsite2 = Microsite::factory()->create([
         'category_id' => $category->id,
+        'series_id' => $series->id,
         'slug' => 'sektoral-2026',
         'is_published' => true,
         'start_date' => '2026-01-01',
