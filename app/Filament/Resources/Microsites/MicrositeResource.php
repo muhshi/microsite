@@ -20,7 +20,7 @@ class MicrositeResource extends Resource
 {
     protected static ?string $model = Microsite::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAlt;
 
     protected static ?string $recordTitleAttribute = 'title';
 
