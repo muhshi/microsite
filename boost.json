@@ -3,6 +3,7 @@
         "gemini",
         "claude_code"
     ],
+    "cloud": false,
     "guidelines": true,
     "herd_mcp": true,
     "mcp": true,
