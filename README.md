@@ -77,6 +77,14 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 
 ## 📋 Changelog
 
+### 2026-05-28 (4)
+- **Added:** **User Management Resource (`UserResource`)**. Created a new Filament resource under the "Settings" navigation group to manage User records.
+- **Added:** **Interactive Role Assignment**. Integrated role mapping directly in the `UserForm` using a preloaded CheckboxList component referencing Spatie's roles database relationship.
+- **Added:** **Role Badges in User Table**. Custom-styled the roles column in the `UsersTable` to display roles as color-coded badges (e.g., danger/red for `super_admin`, success/green for `pegawai`).
+- **Added:** **Self-Deletion Protection**. Extended `UserPolicy` and registered a centralized `Gate::before` hook in `AppServiceProvider.php` to block authenticated users from deleting their own accounts (returning forbidden/false).
+- **Changed:** **Shield Permissions Generation**. Regenerated Filament Shield permissions to accommodate the new `User` resource for permissions enforcement.
+- **Added:** **User Management Tests**. Created `tests/Feature/UserManagementTest.php` verifying that only super admins can manage users, pegawai are rejected, and self-deletion is prevented.
+
 ### 2026-05-28 (3)
 - **Added:** **Ownership Tracking & Authorization (Filament Shield)**. Implemented user ownership tracking (`created_by` column) for `Microsite` and `ShortLink` models. Regular users can only edit or delete records they created, while all other records are read-only.
 - **Added:** **Role Management**. Integrated `filament-shield` for role-based authorization, providing a `super_admin` role (full access to edit and delete all records) and a `pegawai` role (default, restricted to editing/deleting own records).

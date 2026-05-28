@@ -408,6 +408,21 @@ Form (`LinkForm`) terdiri dari 2 Section:
 
 ---
 
+### `UserResource` (User Management)
+
+**File:** `app/Filament/Resources/Users/UserResource.php`
+
+**Nav group:** `Settings`  
+**Icon:** `Heroicon::OutlinedUsers`  
+
+Form (`UserForm`) terdiri dari 2 Section:
+1. **Informasi Pengguna**: `name`, `email`, `nip`, `jabatan`, dan `password` (di-hash otomatis sebelum disimpan, wajib diisi saat pembuatan baru dan opsional saat pengeditan).
+2. **Hak Akses (Roles)**: `roles` (CheckboxList relasi Spatie Permission untuk mengelola role user).
+
+Table (`UsersTable`) menampilkan data user beserta badge role dengan warna khusus (merah untuk `super_admin` dan hijau untuk `pegawai`).
+
+---
+
 ## Filament Widgets (Dashboard)
 
 ### `MicrositeStatsOverview`
