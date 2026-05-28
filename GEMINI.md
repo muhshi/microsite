@@ -33,7 +33,6 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, and naming.
 - Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
 - Check for existing components to reuse before writing a new one.
-- Proactively suggest and explain the best architectural approaches (e.g., using Traits, Services, Action classes, or design patterns) when implementing features or fixing issues that share common logic, rather than immediately writing duplicate code or simple inline implementations.
 
 ## Verification Scripts
 
@@ -41,7 +40,6 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## Application Structure & Architecture
 
-- **IMPORTANT:** Before making any changes, read `CODEBASE.md` at the project root. It documents all models, relations, Filament resources, form schemas, routing logic, traits, and conventions for this project.
 - Stick to existing directory structure; don't create new base folders without approval.
 - Do not change the application's dependencies without approval.
 

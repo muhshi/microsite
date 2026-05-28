@@ -219,6 +219,12 @@ GET /auth/sipetra/callback → SsoController@callback
 
 **Implements:** `FilamentUser` → method `canAccessPanel()` mengizinkan semua authenticated user untuk dev/local, atau user tertentu di production.
 
+**Role & Authorization (Filament Shield & Spatie Permission):**
+- Menggunakan `HasRoles` trait dari Spatie Permission.
+- **Roles:** `super_admin` (akses tidak terbatas via `define_via_gate => true`) dan `pegawai` (default role).
+- Method helper `isSuperAdmin(): bool` memeriksa apakah pengguna adalah super admin.
+- Hubungan `microsites()` dan `shortLinks()` menghubungkan pengguna ke record yang mereka buat.
+
 ---
 
 ## Trait: `HasSlug`
@@ -247,6 +253,28 @@ class Microsite extends Model {
 ```
 
 > **Penting:** Slug hanya digenerate saat **belum ada** (kosong). Untuk update slug, harus set ke null/kosong dulu.
+
+---
+
+## Trait: `HasOwner`
+
+**File:** `app/Models/Concerns/HasOwner.php`
+
+```php
+trait HasOwner {
+    // Hook ke Eloquent 'creating' event untuk mengisi created_by dengan id user yang login
+    protected static function bootHasOwner(): void { ... }
+
+    // Relasi BelongsTo ke User yang membuat record
+    public function createdBy(): BelongsTo { ... }
+
+    // Scope query untuk menyaring data milik user saat ini saja
+    public function scopeOwnedByCurrentUser(Builder $query): Builder { ... }
+}
+```
+
+**Penggunaan di Model:**
+Tambahkan `use HasOwner;` di kelas model dan tambahkan `'created_by'` ke dalam properti `$fillable`. Digunakan pada model `Microsite` dan `ShortLink`.
 
 ---
 

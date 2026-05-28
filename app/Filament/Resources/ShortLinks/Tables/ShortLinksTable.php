@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class ShortLinksTable
@@ -43,6 +44,11 @@ class ShortLinksTable
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Tidak ada'),
+                TextColumn::make('createdBy.name')
+                    ->label('Dibuat Oleh')
+                    ->placeholder('-')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime()
@@ -50,6 +56,13 @@ class ShortLinksTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
+            ->filters([
+                SelectFilter::make('created_by')
+                    ->label('Dibuat Oleh')
+                    ->relationship('createdBy', 'name')
+                    ->searchable()
+                    ->preload(),
+            ])
             ->recordActions([
                 EditAction::make(),
             ])

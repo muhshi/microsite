@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasOwner;
 use App\Models\Concerns\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Microsite extends Model
 {
-    use HasFactory, HasSlug, SoftDeletes;
+    use HasFactory, HasOwner, HasSlug, SoftDeletes;
 
     protected string $slugSource = 'title';
 
@@ -36,6 +37,7 @@ class Microsite extends Model
         'meta_description',
         'og_image_path',
         'is_public',
+        'created_by',
     ];
 
     protected function casts(): array

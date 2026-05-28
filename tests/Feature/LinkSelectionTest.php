@@ -8,6 +8,8 @@ use App\Models\MicrositeSection;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 uses(RefreshDatabase::class);
 
@@ -29,7 +31,10 @@ function findComponentByName(array $components, string $name)
 }
 
 it('filters parent links and sections based on selected microsite in LinkResource', function () {
+    app()[PermissionRegistrar::class]->forgetCachedPermissions();
+    $superAdminRole = Role::create(['name' => config('filament-shield.super_admin_role', 'super_admin')]);
     $user = User::factory()->create();
+    $user->assignRole($superAdminRole);
 
     $microsite1 = Microsite::factory()->create(['title' => 'Microsite A']);
     $microsite2 = Microsite::factory()->create(['title' => 'Microsite B']);
@@ -118,7 +123,10 @@ it('filters parent links and sections based on selected microsite in LinkResourc
 });
 
 it('filters parent links based on current microsite in MicrositeForm edit', function () {
+    app()[PermissionRegistrar::class]->forgetCachedPermissions();
+    $superAdminRole = Role::create(['name' => config('filament-shield.super_admin_role', 'super_admin')]);
     $user = User::factory()->create();
+    $user->assignRole($superAdminRole);
 
     $microsite1 = Microsite::factory()->create(['title' => 'Microsite A']);
     $microsite2 = Microsite::factory()->create(['title' => 'Microsite B']);

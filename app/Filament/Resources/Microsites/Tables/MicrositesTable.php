@@ -14,6 +14,7 @@ use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -46,6 +47,7 @@ class MicrositesTable
                             ->action(function (Microsite $record, array $data): void {
                                 $record->update($data);
                             })
+                            ->disabled(fn (Microsite $record): bool => ! (auth()->user()->isSuperAdmin() || $record->created_by === auth()->id()))
                     ),
                 ColorColumn::make('accent_color')
                     ->action(
@@ -60,12 +62,18 @@ class MicrositesTable
                             ->action(function (Microsite $record, array $data): void {
                                 $record->update($data);
                             })
+                            ->disabled(fn (Microsite $record): bool => ! (auth()->user()->isSuperAdmin() || $record->created_by === auth()->id()))
                     ),
                 IconColumn::make('is_published')
                     ->boolean(),
                 IconColumn::make('is_public')
                     ->label('Public')
                     ->boolean(),
+                TextColumn::make('createdBy.name')
+                    ->label('Created By')
+                    ->placeholder('-')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -81,6 +89,11 @@ class MicrositesTable
             ])
             ->filters([
                 TrashedFilter::make(),
+                SelectFilter::make('created_by')
+                    ->label('Created By')
+                    ->relationship('createdBy', 'name')
+                    ->searchable()
+                    ->preload(),
             ])
             ->recordActions([
                 Action::make('view_live')
@@ -95,6 +108,7 @@ class MicrositesTable
                     ->color('info')
                     ->requiresConfirmation()
                     ->tooltip('Duplikasi microsite ini beserta seluruh seksi & link di dalamnya')
+                    ->visible(fn (Microsite $record): bool => auth()->user()->isSuperAdmin() || $record->created_by === auth()->id())
                     ->action(function (Microsite $record): void {
                         // 1. Duplikasi data utama microsite
                         $newMicrosite = $record->replicate();

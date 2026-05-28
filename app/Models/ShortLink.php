@@ -2,23 +2,23 @@
 
 namespace App\Models;
 
-use Database\Factories\ShortLinkFactory;
+use App\Models\Concerns\HasOwner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class ShortLink extends Model
 {
+    use HasFactory, HasOwner;
+
     protected $fillable = [
         'code',
         'original_url',
         'clicks',
         'is_active',
         'expires_at',
+        'created_by',
     ];
-
-    /** @use HasFactory<ShortLinkFactory> */
-    use HasFactory;
 
     protected static function booted(): void
     {

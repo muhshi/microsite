@@ -77,6 +77,13 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 
 ## 📋 Changelog
 
+### 2026-05-28 (3)
+- **Added:** **Ownership Tracking & Authorization (Filament Shield)**. Implemented user ownership tracking (`created_by` column) for `Microsite` and `ShortLink` models. Regular users can only edit or delete records they created, while all other records are read-only.
+- **Added:** **Role Management**. Integrated `filament-shield` for role-based authorization, providing a `super_admin` role (full access to edit and delete all records) and a `pegawai` role (default, restricted to editing/deleting own records).
+- **Added:** **Creator Columns & Filters in Filament**. Added "Created By" (`createdBy.name`) columns and filter components to Filament tables for both Microsite and Short Link resources.
+- **Changed:** **Idempotent Database Seeding**. Updated `DatabaseSeeder.php` to set up `super_admin` and `pegawai` roles, automatically associate standard permissions to `pegawai`, and idempotent assign the `super_admin` role to the default admin account.
+- **Added:** **Ownership Tests**. Created `tests/Feature/OwnershipTest.php` to verify automatic assignment of creators, owner restrictions, legacy record behavior (null owners), and super admin privileges.
+
 ### 2026-05-28 (2)
 - **Added:** **`CODEBASE.md` — Comprehensive AI Reference**. Created a detailed codebase reference document (`CODEBASE.md`) that covers all models, relations, Filament resources, form schemas, routing logic, traits, widgets, testing conventions, and deployment procedures. Updated `GEMINI.md`, `CLAUDE.md`, and `README.md` to point AI assistants to this document before making changes. Upgraded Docker base image to PHP 8.4 (`dunglas/frankenphp:php8.4`) to resolve Symfony 8 dependency requirement.
 
