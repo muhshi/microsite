@@ -28,7 +28,7 @@ class SeriesResource extends Resource
 {
     protected static ?string $model = Series::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFolder;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSquare2Stack;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Microsite';
 
