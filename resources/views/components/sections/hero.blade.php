@@ -6,11 +6,11 @@
         </span>
     @endif
 
-    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
+    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
         {{ $section->config['title'] ?? $microsite->hero_title ?? $microsite->title }}
     </h2>
 
-    <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+    <p class="text-xl text-slate-500 max-w-2xl mx-auto">
         {{ $section->config['subtitle'] ?? $microsite->hero_subtitle }}
     </p>
 
@@ -18,7 +18,7 @@
         <div class="mt-8 flex justify-center gap-4 flex-wrap">
             @foreach($section->links as $link)
                 <a href="{{ $link->url }}"
-                    class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white theme-primary hover:opacity-90 transition shadow-sm">
+                    class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm font-bold rounded-xl text-white transition-all shadow-sm hover:shadow-md hover:opacity-90 active:scale-95" style="background-color: var(--primary);">
                     @if($link->icon)
                         <span class="mr-2">{{-- Wait we need x-icon or something but since we use blade-heroicons we can do this
                             --}}

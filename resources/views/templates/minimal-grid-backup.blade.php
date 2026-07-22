@@ -46,37 +46,40 @@
 
 <body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col">
 
-    <!-- Clean Grid Background -->
-    <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-50">
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0); background-size: 32px 32px; opacity: 0.6;"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50/90"></div>
+    <!-- Vibrant Background -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+        <div class="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-bps-blue/5 rounded-full filter blur-[120px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-bps-green/5 rounded-full filter blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-bps-orange/5 rounded-full filter blur-[100px] animate-pulse-slow" style="animation-delay: 4s;"></div>
+        <div class="absolute inset-0 opacity-[0.02] mix-blend-multiply" style="background-image: url('data:image/svg+xml,%3Csvg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M15 0L15 30M0 15L30 15\" fill=\"none\" stroke=\"%23005bab\" stroke-width=\"0.5\"/%3E%3C/svg%3E');"></div>
     </div>
 
     <!-- Navigation -->
     <nav class="relative z-50 sticky top-0 px-6 py-4">
         <div class="max-w-7xl mx-auto">
-            <div class="flex items-center justify-between px-8 py-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm transition-all duration-300">
+            <div class="flex items-center justify-between px-8 py-4 rounded-[2rem] shadow-xl text-white transition-colors duration-500" style="background: linear-gradient(to right, var(--color-bps-blue), var(--color-bps-green)); box-shadow: 0 20px 60px color-mix(in srgb, var(--color-bps-blue), transparent 70%)">
                 <div class="flex items-center gap-4 group cursor-pointer" onclick="window.location.href='/'">
-                    <div class="p-1 rounded-xl">
+                    <div class="bg-white p-1.5 rounded-xl shadow-sm">
                         <img src="{{ $microsite->logo_path ? asset('storage/' . $microsite->logo_path) : asset('images/logo.png') }}" alt="Logo {{ $microsite->title }}" class="h-8 w-auto">
                     </div>
-                    <div class="border-l-2 border-slate-200 pl-4">
-                        <span class="block text-sm font-black text-slate-900 uppercase tracking-tight leading-none mb-0.5">PORTAL TERPADU</span>
-                        <span class="block text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em]">BPS Kabupaten Demak</span>
+                    <div class="border-l-2 border-white/30 pl-4">
+                        <span class="block text-sm font-black text-white uppercase tracking-tighter leading-none mb-0.5" style="text-shadow: 0 2px 4px rgba(0,0,0,0.1);">PORTAL TERPADU</span>
+                        <span class="block text-[8px] font-bold text-white/80 uppercase tracking-[0.2em]">BPS Kabupaten Demak</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-6">
                     <button onclick="shareMicrosite()"
-                        class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 hover:text-slate-900 border border-slate-200 transition-all duration-300 flex items-center gap-2 active:scale-95">
+                        class="px-5 py-2.5 rounded-xl text-xs font-bold bg-white hover:bg-slate-100 border border-white/20 backdrop-blur-sm transition-all duration-300 flex items-center gap-2 active:scale-95 shadow-sm"
+                        style="color: var(--color-bps-blue)">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                 d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                         </svg>
                         <span class="hidden sm:inline">Share</span>
                     </button>
                     @auth
-                        <a href="{{ url('/admin') }}" class="px-4 py-2 rounded-xl text-xs font-bold text-white transition-all duration-300 active:scale-95 shadow-sm hover:shadow-md" style="background-color: var(--primary);">Manage</a>
+                        <a href="{{ url('/admin') }}" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-white text-bps-blue hover:bg-slate-50 transition-all duration-300 active:scale-95 shadow-sm">Manage</a>
                     @endauth
                 </div>
             </div>
@@ -86,30 +89,32 @@
     <!-- Hero -->
     <header class="relative z-10 pt-16 pb-12 px-6 text-center reveal">
         @if($microsite->category)
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 mb-8 shadow-sm">
-                <span class="flex h-2 w-2 rounded-full" style="background-color: var(--accent);"></span>
-                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-600">
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass border-bps-blue/10 mb-8 shadow-sm">
+                <span class="flex h-2 w-2 rounded-full bg-bps-green animate-ping"></span>
+                <span class="text-[10px] font-black text-bps-green uppercase tracking-[0.2em]">
                     {{ $microsite->category->name }}
                 </span>
             </div>
         @endif
 
-        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-slate-900 reveal">
-            {{ $microsite->hero_title ?? $microsite->title }}
+        <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-8 leading-[1.1] text-slate-900 reveal">
+            <span class="text-gradient">
+                {{ $microsite->hero_title ?? $microsite->title }}
+            </span>
         </h1>
 
         @if($microsite->hero_subtitle ?? $microsite->description)
-            <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium reveal">
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium opacity-90 reveal">
                 {{ $microsite->hero_subtitle ?? $microsite->description }}
             </p>
         @endif
-        
-        <div class="w-16 h-1 mx-auto mt-10 rounded-full" style="background-color: var(--primary);"></div>
+
+        <div class="w-24 h-1.5 bg-gradient-to-r from-bps-blue via-bps-green to-bps-orange mx-auto mt-12 rounded-full opacity-50"></div>
     </header>
 
-    @if($microsite->series_id)
+    @if($microsite->category)
         @php
-            $siblings = \App\Models\Microsite::where('series_id', $microsite->series_id)
+            $siblings = \App\Models\Microsite::where('category_id', $microsite->category_id)
                 ->where('is_published', true)
                 ->orderBy('start_date', 'asc')
                 ->orderBy('created_at', 'asc')
@@ -117,8 +122,8 @@
         @endphp
 
         @if($siblings->count() > 1)
-            <div class="relative z-20 max-w-6xl mx-auto px-6 mb-10 -mt-2 flex justify-center reveal">
-                <div class="inline-flex p-1.5 bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <div class="relative z-20 max-w-6xl mx-auto px-6 mb-8 -mt-2 flex justify-center reveal">
+                <div class="inline-flex p-1.5 bg-slate-200/40 dark:bg-slate-900/5 backdrop-blur-md rounded-2xl border border-slate-900/10">
                     @foreach($siblings as $sibling)
                         @php
                             $siblingYear = $sibling->start_date 
@@ -128,12 +133,13 @@
                         @endphp
                         
                         <a href="{{ route('redirect.handle', $sibling->slug) }}" 
-                           class="px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 {{ $isActive 
-                                ? 'bg-slate-50 text-slate-900 ring-1 ring-slate-200/50' 
-                                : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50' }}">
+                           class="px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-1.5 {{ $isActive 
+                                ? 'bg-white shadow-md' 
+                                : 'text-slate-500 hover:text-slate-800 hover:bg-white/40' }}"
+                           @if($isActive) style="color: var(--primary);" @endif>
                             
                             @if($isActive)
-                                <span class="h-1.5 w-1.5 rounded-full" style="background-color: var(--primary);"></span>
+                                <span class="h-2 w-2 rounded-full" style="background-color: var(--accent);"></span>
                             @endif
                             
                             Tahun {{ $siblingYear }}
@@ -161,16 +167,25 @@
         </div>
     </main>
 
+    <!-- Section Divider -->
+    <div class="relative h-20 w-full bg-slate-50 overflow-hidden -mb-px">
+        <svg class="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120H1440V0C1440 0 1120 70 720 70C320 70 0 0 0 0V120Z" fill="#0f172a"/>
+        </svg>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 mt-12">
-        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-8">
+    <footer class="bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-[400px] h-[400px] bg-bps-blue/10 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="flex items-center gap-4">
-                <div class="p-2 bg-slate-50 rounded-xl border border-slate-100">
+                <div class="p-2 bg-white rounded-xl shadow-lg">
                     <img src="{{ asset('images/logo.png') }}" class="h-8 w-auto" alt="Logo BPS">
                 </div>
                 <div>
-                   <h4 class="text-sm font-black tracking-tight text-slate-900 leading-none mb-1">BADAN PUSAT STATISTIK</h4>
-                   <h4 class="text-[10px] font-bold tracking-widest text-slate-500 leading-none uppercase">KABUPATEN DEMAK</h4>
+                   <h4 class="text-sm font-black tracking-tighter leading-none mb-1">BADAN PUSAT STATISTIK</h4>
+                   <h4 class="text-sm font-black tracking-tighter text-bps-blue leading-none uppercase">KABUPATEN DEMAK</h4>
                 </div>
             </div>
 
@@ -178,15 +193,15 @@
                 &copy; {{ date('Y') }} Badan Pusat Statistik Kabupaten Demak. <br class="md:hidden"> Seluruh hak cipta dilindungi.
             </p>
 
-            <div class="flex items-center gap-3 px-4 py-2 rounded-lg bg-slate-50 border border-slate-100">
-                <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-600">Data Mencerdaskan Bangsa</span>
+            <div class="flex items-center gap-3 px-5 py-2 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300">Data Mencerdaskan Bangsa</span>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top -->
-    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-white border border-slate-200 text-slate-600 rounded-xl shadow-sm hover:shadow-md flex items-center justify-center translate-y-20 opacity-0 transition-all duration-300 hover:bg-slate-50 hover:text-slate-900 z-[60]">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path></svg>
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 glass border-white text-bps-blue rounded-xl shadow-2xl flex items-center justify-center translate-y-20 opacity-0 transition-all duration-500 hover:bg-bps-blue hover:text-white z-[60]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg>
     </button>
 
     <script>
@@ -249,3 +264,4 @@
 </body>
 
 </html>
+l>

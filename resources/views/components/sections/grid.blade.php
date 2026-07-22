@@ -22,7 +22,7 @@
     @if(isset($section->config['title']))
         <button @click="sectionOpen = !sectionOpen" class="w-full flex items-center justify-between mb-8 group cursor-pointer">
             <div class="text-left">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 group-hover:text-gray-700 transition-colors">
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 group-hover:text-slate-700 transition-colors">
                     {{ $section->config['title'] }}
                 </h2>
                 @if(isset($section->config['description']))
@@ -44,13 +44,13 @@
         @foreach($section->links as $link)
             @if($link->children && $link->children->count() > 0)
                 {{-- Parent Link — Collapsible Card --}}
-                <div x-data="{ childOpen: false }" class="glass-card rounded-2xl overflow-hidden {{ $itemClass }}">
+                <div x-data="{ childOpen: false }" class="bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300 rounded-2xl overflow-hidden {{ $itemClass }}">
                     <button @click="childOpen = !childOpen"
                         class="w-full p-6 sm:p-8 flex flex-col items-center text-center gap-4 cursor-pointer group">
 
                         @if($link->icon)
-                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 icon-glow"
-                                style="background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 12%, white), color-mix(in srgb, var(--accent) 8%, white));">
+                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                                style="background-color: color-mix(in srgb, var(--primary) 8%, white);">
                                 @svg($link->icon, 'w-7 h-7 sm:w-8 sm:h-8', ['style' => 'color: var(--primary);'])
                             </div>
                         @endif
@@ -105,13 +105,13 @@
             @else
                 {{-- Regular Link Card --}}
                 <a href="{{ $link->url }}"
-                    class="block glass-card rounded-2xl p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300 group {{ $itemClass }}"
+                    class="block bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 rounded-2xl p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300 group {{ $itemClass }}"
                     target="_blank" rel="noopener">
 
                     <div class="flex flex-col items-center text-center gap-4">
                         @if($link->icon)
-                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 icon-glow"
-                                style="background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 12%, white), color-mix(in srgb, var(--accent) 8%, white));">
+                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                                style="background-color: color-mix(in srgb, var(--primary) 8%, white);">
                                 @svg($link->icon, 'w-7 h-7 sm:w-8 sm:h-8', ['style' => 'color: var(--primary);'])
                             </div>
                         @endif
