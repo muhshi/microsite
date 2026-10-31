@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Responses\SsoLogoutResponse;
 use App\Models\User;
+use Filament\Auth\Http\Responses\Contracts\LogoutResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -15,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if (interface_exists(LogoutResponse::class)) {
+            $this->app->singleton(LogoutResponse::class, SsoLogoutResponse::class);
+        }
     }
 
     /**

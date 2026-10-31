@@ -77,6 +77,11 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 
 ## 📋 Changelog
 
+### 2026-10-31
+- **Federated Single Logout (SLO) & Anti Double-Click SSO Button**:
+  - Implementasi `SsoLogoutResponse` pada Filament agar logout pengguna otomatis memutus sesi terpusat di SIPETRA (`/oauth/logout`) dan mencegah login otomatis tanpa kredensial.
+  - Menambahkan animasi loading spinner dan disable state pada tombol "Masuk dengan SIPETRA SSO" untuk mencegah submit ganda.
+
 ### 2026-07-22
 - **UI/UX Redesign:** Completely overhauled the microsite interface to a modern Bento Grid styling. Removed "AI-slop" elements (heavy gradients, neon shadows, floating animations) in favor of a crisp, professional, structural light-mode design with subtle borders, flat backgrounds, and refined typography.
 
