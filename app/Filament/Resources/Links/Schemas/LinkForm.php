@@ -19,45 +19,57 @@ class LinkForm
     {
         return $schema
             ->components([
-                Section::make('Link Details')
+                Section::make('Informasi Tautan')
                     ->schema([
                         TextInput::make('title')
+                            ->label('Nama / Judul Tautan')
                             ->required(),
                         TextInput::make('url')
-                            ->label('URL')
+                            ->label('Alamat Web (URL)')
                             ->url(),
                         TextInput::make('icon')
-                            ->label('Icon')
+                            ->label('Ikon Tautan')
+                            ->placeholder('Klik untuk memilih ikon...')
                             ->readOnly()
+                            ->prefixIcon(fn ($state) => filled($state) ? $state : null)
                             ->extraInputAttributes([
-                                'x-on:click' => '$el.closest(\'[data-field-wrapper]\').querySelector(\'button\').click()',
+                                'x-on:click' => '$el.closest(\'[data-field-wrapper]\').querySelector(\'button[title*="Pilih"], button\').click()',
                                 'style' => 'cursor: pointer;',
                             ])
-                            ->suffixAction(
+                            ->suffixActions([
                                 Action::make('selectIcon')
+                                    ->label('Pilih')
                                     ->icon('heroicon-m-squares-2x2')
-                                    ->modalHeading('Select Icon')
+                                    ->tooltip('Buka katalog ikon')
+                                    ->modalHeading('Pilih Ikon Tautan')
                                     ->modalIcon(false)
                                     ->modalWidth('4xl')
                                     ->modalContent(fn ($component): View => view('filament.components.icon-picker-modal', ['statePath' => $component->getStatePath()]))
                                     ->modalSubmitAction(false)
-                                    ->modalCancelAction(false)
-                            ),
+                                    ->modalCancelAction(false),
+                                Action::make('clearIcon')
+                                    ->label('Hapus')
+                                    ->icon('heroicon-m-x-mark')
+                                    ->color('danger')
+                                    ->tooltip('Kosongkan ikon')
+                                    ->visible(fn ($state) => filled($state))
+                                    ->action(fn ($component) => $component->state(null)),
+                            ]),
                         TextInput::make('badge_text')
-                            ->label('Badge Text'),
+                            ->label('Label Badge (opsional)'),
                     ])->columns(2),
 
-                Section::make('Relasi & Pengaturan')
+                Section::make('Relasi & Penempatan')
                     ->schema([
                         Select::make('microsite_id')
-                            ->label('Microsite')
+                            ->label('Microsite Induk')
                             ->relationship('microsite', 'title')
                             ->searchable()
                             ->preload()
                             ->placeholder('Pilih Microsite (opsional)')
                             ->live(),
                         Select::make('section_id')
-                            ->label('Section')
+                            ->label('Seksi Konten')
                             ->relationship(
                                 'section',
                                 'type',
@@ -70,9 +82,9 @@ class LinkForm
                             )
                             ->searchable()
                             ->preload()
-                            ->placeholder('Pilih Section (opsional)'),
+                            ->placeholder('Pilih Seksi (opsional)'),
                         Select::make('parent_id')
-                            ->label('Parent Link (opsional)')
+                            ->label('Jadikan Sub-Tautan dari (Parent Link)')
                             ->relationship(
                                 'parent',
                                 'title',
@@ -87,11 +99,13 @@ class LinkForm
                             )
                             ->searchable()
                             ->preload()
-                            ->placeholder('Tidak ada parent'),
+                            ->placeholder('Tidak ada parent (tingkat utama)'),
                         TextInput::make('order')
+                            ->label('Nomor Urut')
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
+                            ->label('Status Aktif')
                             ->default(true),
                     ])->columns(2),
             ]);

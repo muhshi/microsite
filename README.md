@@ -78,6 +78,14 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-11-20
+- **Optimasi Kecepatan Icon Picker Modal (Instan <20ms):**
+  - Mengimplementasikan `IconPickerService` dengan caching permanen string SVG di memory (`Cache::rememberForever`), mengeliminasi 370+ operasi pembacaan disk berulang dari 9.000+ file SVG package icons yang sebelumnya memakan waktu 1–4 detik.
+  - Menambahkan tab kurasi **"Populer"** berisi 32 ikon utama kegiatan/layanan BPS sebagai tampilan default saat modal dibuka.
+- **Peningkatan UI/UX Form Builder Microsite:**
+  - Menata ulang form menjadi **Tabs Terstruktur** (*Informasi Utama*, *Desain & Branding*, *Konten & Tautan*) sehingga pegawai tidak perlu scroll panjang saat mengelola banyak tautan kegiatan.
+  - Menambahkan **Live Prefix Icon Preview** pada input form agar ikon yang dipilih langsung terlihat visualnya.
+  - Menambahkan aksi **Hapus Ikon** satu klik untuk memudahkan mengosongkan pilihan ikon.
+  - Menambahkan label dinamis informatif pada Seksi Konten (menampilkan judul & layout) dan Tautan (menampilkan judul & badge).
 - **Kolaborasi Edit Microsite untuk Semua Pegawai:**
   - Mengubah kebijakan otorisasi `MicrositePolicy` (`update` dan `replicate`) agar seluruh pegawai yang memiliki hak akses dapat mengedit dan menduplikasi microsite milik siapapun (tidak lagi terkunci hanya untuk pembuat asli).
   - Membuka akses inline editing warna tema (`theme_color` & `accent_color`) serta aksi duplikasi pada tabel Filament untuk seluruh pegawai.
