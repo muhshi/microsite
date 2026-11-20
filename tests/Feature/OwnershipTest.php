@@ -108,7 +108,7 @@ it('authorizes super admin to update and delete any microsite', function () {
     expect(Gate::forUser($superAdmin)->allows('delete', $noOwnerMicrosite))->toBeTrue();
 });
 
-it('authorizes owners to update and delete their own microsite if they have general permissions', function () {
+it('authorizes employees with permission to update any microsite, while keeping deletion restricted to owner', function () {
     $owner = User::factory()->create();
     $owner->givePermissionTo($this->updatePermission);
     $owner->givePermissionTo($this->deletePermission);
@@ -116,6 +116,8 @@ it('authorizes owners to update and delete their own microsite if they have gene
     $otherUser = User::factory()->create();
     $otherUser->givePermissionTo($this->updatePermission);
     $otherUser->givePermissionTo($this->deletePermission);
+
+    $userWithoutPerm = User::factory()->create();
 
     $category = Category::factory()->create();
 
@@ -127,19 +129,24 @@ it('authorizes owners to update and delete their own microsite if they have gene
         'created_by' => $owner->id,
     ]);
 
-    // Owner can update/delete
+    // Owner can update and delete
     expect(Gate::forUser($owner)->allows('update', $microsite))->toBeTrue();
     expect(Gate::forUser($owner)->allows('delete', $microsite))->toBeTrue();
 
-    // Other user with the same general permission cannot update/delete
-    expect(Gate::forUser($otherUser)->allows('update', $microsite))->toBeFalse();
+    // Other employee with update permission CAN update, but CANNOT delete
+    expect(Gate::forUser($otherUser)->allows('update', $microsite))->toBeTrue();
     expect(Gate::forUser($otherUser)->allows('delete', $microsite))->toBeFalse();
+
+    // User without update permission cannot update
+    expect(Gate::forUser($userWithoutPerm)->allows('update', $microsite))->toBeFalse();
 });
 
-it('denies regular users to update or delete legacy microsites (null created_by)', function () {
+it('authorizes users with permission to update legacy microsites (null created_by)', function () {
     $user = User::factory()->create();
     $user->givePermissionTo($this->updatePermission);
     $user->givePermissionTo($this->deletePermission);
+
+    $userWithoutPerm = User::factory()->create();
 
     $category = Category::factory()->create();
 
@@ -151,8 +158,13 @@ it('denies regular users to update or delete legacy microsites (null created_by)
         'created_by' => null,
     ]);
 
-    expect(Gate::forUser($user)->allows('update', $microsite))->toBeFalse();
+    // Can update legacy microsite if has permission
+    expect(Gate::forUser($user)->allows('update', $microsite))->toBeTrue();
+    // Cannot delete legacy microsite unless super admin
     expect(Gate::forUser($user)->allows('delete', $microsite))->toBeFalse();
+
+    // User without permission cannot update
+    expect(Gate::forUser($userWithoutPerm)->allows('update', $microsite))->toBeFalse();
 });
 
 it('performs correct ownership and role checks on ShortLinks', function () {

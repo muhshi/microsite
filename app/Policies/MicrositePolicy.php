@@ -29,7 +29,7 @@ class MicrositePolicy
 
     public function update(User $user, Microsite $microsite): bool
     {
-        return $user->isSuperAdmin() || ($user->can('Update:Microsite') && $microsite->created_by === $user->id);
+        return $user->isSuperAdmin() || $user->can('Update:Microsite');
     }
 
     public function delete(User $user, Microsite $microsite): bool
@@ -64,7 +64,7 @@ class MicrositePolicy
 
     public function replicate(User $user, Microsite $microsite): bool
     {
-        return $user->isSuperAdmin() || ($user->can('Replicate:Microsite') && $microsite->created_by === $user->id);
+        return $user->isSuperAdmin() || $user->can('Replicate:Microsite');
     }
 
     public function reorder(User $user): bool
