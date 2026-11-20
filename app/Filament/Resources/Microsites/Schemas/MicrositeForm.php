@@ -84,10 +84,16 @@ class MicrositeForm
                         ColorPicker::make('accent_color')->default('#059669'),
                         FileUpload::make('logo_path')
                             ->disk('public')
+                            ->image()
                             ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'])
                             ->directory('logos')
+                            ->maxSize(2048)
+                            ->imageResizeMode('contain')
+                            ->imageResizeTargetWidth('500')
+                            ->imageResizeTargetHeight('500')
+                            ->imageEditor()
                             ->imagePreviewHeight('100')
-                            ->helperText('SVG, PNG, JPG, or WebP. Maksimal 2MB.'),
+                            ->helperText('SVG, PNG, JPG, atau WebP. Otomatis dioptimalkan & maksimal 2MB.'),
                     ])->columns(2),
 
                 Section::make('Content (Sections & Links)')
