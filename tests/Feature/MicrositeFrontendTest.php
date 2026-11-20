@@ -5,6 +5,7 @@ use App\Models\Microsite;
 use App\Models\MicrositeLink;
 use App\Models\MicrositeSection;
 use App\Models\Series;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -25,7 +26,7 @@ it('returns 404 for guests if microsite is not published', function () {
 });
 
 it('allows authenticated users to preview unpublished draft microsite', function () {
-    $user = \App\Models\User::factory()->create();
+    $user = User::factory()->create();
     $microsite = Microsite::factory()->create([
         'slug' => 'draft-preview-slug',
         'is_published' => false,

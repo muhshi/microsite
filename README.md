@@ -78,6 +78,18 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-11-20
+- **Perampingan Navigasi & Pengelompokan Menu Admin (Filament):**
+  - Menyembunyikan menu mandiri *Manage Link* dari sidebar navigasi utama karena pengelolaan link sudah terintegrasi rapi di dalam form builder Microsite.
+  - Mengelompokkan menu navigasi menjadi lebih bersih dan intuitif:
+    - **Portal & Layanan:** *Portal Microsite* dan *Short Links*.
+    - **Data Master:** *Kategori Portal* dan *Seri Kegiatan*.
+    - **Pengaturan:** *Pengguna*.
+- **Alur Pratinjau Draft (Draft Preview Flow):**
+  - Mengizinkan pengguna yang sudah login (pegawai BPS) untuk membuka dan melihat pratinjau microsite berstatus draft tanpa harus mempublikasikannya terlebih dahulu.
+  - Menambahkan tombol aksi dinamis pada tabel dan form edit microsite: label **"Buka Live"** (warna hijau) untuk microsite terbit dan **"Preview Draft"** (warna amber) untuk microsite draft.
+- **Peningkatan Tabel Microsite:**
+  - Menambahkan kolom `slug` dengan fitur copy URL 1-klik untuk memudahkan pegawai menyalin link publik portal secara instan.
+  - Menambahkan filter status publikasi (`TernaryFilter`) untuk menyaring microsite yang sudah dipublikasikan vs masih berupa draft.
 - **Pembersihan & Penyempurnaan Tampilan UI Microsite:**
   - Menghapus tuntas efek radial blur glow dan dot grid background yang sebelumnya menimbulkan noda/spot kotor pada layar.
   - Memperbaiki proporsi container Bento Grid agar kartu tidak melar kosong jika dalam satu seksi hanya terdapat 1–2 tautan.
