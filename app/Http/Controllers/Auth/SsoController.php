@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -24,7 +25,7 @@ class SsoController extends Controller
         try {
             $ssoUser = Socialite::driver('sipetra')->user();
         } catch (\Exception $e) {
-            return redirect()->route('filament.admin.auth.login')->with('error', 'SSO Gagal: ' . $e->getMessage());
+            return redirect()->route('filament.admin.auth.login')->with('error', 'SSO Gagal: '.$e->getMessage());
         }
 
         $rawData = $ssoUser->getRaw();
@@ -56,7 +57,7 @@ class SsoController extends Controller
 
         Auth::login($user);
 
-        \Filament\Notifications\Notification::make()
+        Notification::make()
             ->title('Profil Berhasil Disinkronkan dari SIPETRA')
             ->success()
             ->send();

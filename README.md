@@ -77,6 +77,23 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 
 ## 📋 Changelog
 
+### 2026-11-20
+- **Kolaborasi Edit Microsite untuk Semua Pegawai:**
+  - Mengubah kebijakan otorisasi `MicrositePolicy` (`update` dan `replicate`) agar seluruh pegawai yang memiliki hak akses dapat mengedit dan menduplikasi microsite milik siapapun (tidak lagi terkunci hanya untuk pembuat asli).
+  - Membuka akses inline editing warna tema (`theme_color` & `accent_color`) serta aksi duplikasi pada tabel Filament untuk seluruh pegawai.
+  - Mempertahankan proteksi penghapusan (`delete`, `forceDelete`, `restore`) hanya untuk pembuat asli atau Super Admin guna mencegah data terhapus secara tidak sengaja.
+- **Optimasi & Kompresi Upload Gambar/Logo:**
+  - Menambahkan client-side auto-resizing (`500x500` max contain) dan konversi optimasi pada FilePond Filament builder sehingga file gambar tidak membebani server.
+  - Menerapkan validasi ukuran maksimal file ketat `maxSize(2048)` (maksimal 2MB) dan fitur `imageEditor` untuk crop/penyesuaian rasio logo.
+- **Peningkatan Performa & Penghapusan N+1 Query:**
+  - Menambahkan eager loading `category` pada `RedirectController` untuk mengeliminasi lazy-loading query berulang di halaman publik.
+  - Memindahkan query data `siblings` (navigasi tahunan seri kegiatan) dari template Blade langsung ke Controller.
+- **Redesign UI & Fitur Interaktif Microsite:**
+  - Menambahkan background **Dynamic Ambient Glow** yang membaurkan warna tema dan aksen instansi secara halus dan elegan.
+  - Menambahkan **Live Instant Search Bar** interaktif (didukung Alpine.js) untuk menyaring tautan dan berkas layanan secara real-time tanpa reload halaman.
+  - Menambahkan fitur **Modal QR Code** di navigasi utama untuk kemudahan pemindaian langsung lewat ponsel saat rapat, presentasi, atau sosialisasi.
+  - Memperbarui komponen kartu bento grid dan list view dengan counter jumlah sub-tautan, indikator eksternal link `↗`, dan transisi hover yang lebih responsif.
+
 ### 2026-10-31
 - **Profil & Password Terpusat SIPETRA & Sinkronisasi 1-Klik**:
   - Menambahkan menu "Profil & Password (SIPETRA)" pada dropdown user Filament yang membuka modal pengaturan akun terpusat di `https://bpsdemak.com/account`.
