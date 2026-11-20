@@ -18,6 +18,8 @@ class LinkResource extends Resource
 {
     protected static ?string $model = MicrositeLink::class;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLink;
 
     protected static ?string $recordTitleAttribute = 'title';

@@ -30,7 +30,11 @@ class SeriesResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSquare2Stack;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Microsite';
+    protected static ?string $navigationLabel = 'Seri Kegiatan';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Data Master';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $pluralModelLabel = 'Series';
 

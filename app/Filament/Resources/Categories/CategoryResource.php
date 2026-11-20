@@ -30,7 +30,11 @@ class CategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedQueueList;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Microsite';
+    protected static ?string $navigationLabel = 'Kategori Portal';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Data Master';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

@@ -24,7 +24,11 @@ class MicrositeResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Microsite';
+    protected static ?string $navigationLabel = 'Portal Microsite';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Portal & Layanan';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
