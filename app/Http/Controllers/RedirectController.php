@@ -24,6 +24,7 @@ class RedirectController extends Controller
 
         // 2. Fall back to microsite
         $microsite = Microsite::with([
+            'category',
             'sections' => function ($query) {
                 $query->where('is_active', true)->orderBy('order');
             },
@@ -49,7 +50,16 @@ class RedirectController extends Controller
                 $template = 'minimal-grid';
             }
 
-            return view("templates.{$template}", compact('microsite'));
+            $siblings = collect();
+            if ($microsite->series_id) {
+                $siblings = Microsite::where('series_id', $microsite->series_id)
+                    ->where('is_published', true)
+                    ->orderBy('start_date', 'asc')
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+            }
+
+            return view("templates.{$template}", compact('microsite', 'siblings'));
         }
 
         abort(404);

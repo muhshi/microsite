@@ -107,16 +107,7 @@
         <div class="w-16 h-1 mx-auto mt-10 rounded-full" style="background-color: var(--primary);"></div>
     </header>
 
-    @if($microsite->series_id)
-        @php
-            $siblings = \App\Models\Microsite::where('series_id', $microsite->series_id)
-                ->where('is_published', true)
-                ->orderBy('start_date', 'asc')
-                ->orderBy('created_at', 'asc')
-                ->get();
-        @endphp
-
-        @if($siblings->count() > 1)
+    @if($microsite->series_id && isset($siblings) && $siblings->count() > 1)
             <div class="relative z-20 max-w-6xl mx-auto px-6 mb-10 -mt-2 flex justify-center reveal">
                 <div class="inline-flex p-1.5 bg-white rounded-2xl border border-slate-200 shadow-sm">
                     @foreach($siblings as $sibling)
@@ -142,7 +133,6 @@
                 </div>
             </div>
         @endif
-    @endif
 
     <!-- Dynamic Sections -->
     <main class="relative z-10 flex-grow pb-24 px-6 reveal">
