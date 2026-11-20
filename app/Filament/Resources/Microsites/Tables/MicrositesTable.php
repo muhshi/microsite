@@ -15,6 +15,7 @@ use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -32,8 +33,19 @@ class MicrositesTable
                     ->sortable(),
 
                 TextColumn::make('title')
+                    ->label('Judul Portal')
                     ->searchable()
                     ->sortable(),
+
+                TextColumn::make('slug')
+                    ->label('Tautan (Slug)')
+                    ->searchable()
+                    ->copyable()
+                    ->copyableState(fn (Microsite $record): string => route('redirect.handle', $record->slug))
+                    ->copyMessage('Tautan portal disalin ke clipboard!')
+                    ->color('primary')
+                    ->weight('bold')
+                    ->tooltip('Klik untuk menyalin URL'),
                 ColorColumn::make('theme_color')
                     ->action(
                         Action::make('edit_theme_color')
@@ -88,6 +100,10 @@ class MicrositesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                TernaryFilter::make('is_published')
+                    ->label('Status Publikasi')
+                    ->trueLabel('Sudah Tayang (Live)')
+                    ->falseLabel('Rancangan (Draft)'),
                 TrashedFilter::make(),
                 SelectFilter::make('created_by')
                     ->label('Created By')
