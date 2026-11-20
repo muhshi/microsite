@@ -78,6 +78,14 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-11-20
+- **Pembersihan & Penyempurnaan Tampilan UI Microsite:**
+  - Menghapus tuntas efek radial blur glow dan dot grid background yang sebelumnya menimbulkan noda/spot kotor pada layar.
+  - Memperbaiki proporsi container Bento Grid agar kartu tidak melar kosong jika dalam satu seksi hanya terdapat 1–2 tautan.
+  - Memperbaiki padding input search bar agar ikon pencarian tidak menimpa teks placeholder.
+  - Menyempurnakan header seksi dengan aksen vertikal bar dan tombol collapse yang proporsional.
+  - Menyertakan aset produksi CSS/JS Vite terbaru dan menambahkan build step pada `deploy.sh`.
+- **Script Deployment Otomatis & Standar Server (`deploy.sh`):**
+  - Membuat script deployment otomatis `deploy.sh` untuk server Ubuntu BPS Demak (`ssh bpsdemak@10.133.21.24`) dengan auto-fetch, migrasi aman, build frontend, optimasi cache, dan reload web server.
 - **Optimasi Kecepatan Icon Picker Modal (Instan <20ms):**
   - Mengimplementasikan `IconPickerService` dengan caching permanen string SVG di memory (`Cache::rememberForever`), mengeliminasi 370+ operasi pembacaan disk berulang dari 9.000+ file SVG package icons yang sebelumnya memakan waktu 1–4 detik.
   - Menambahkan tab kurasi **"Populer"** berisi 32 ikon utama kegiatan/layanan BPS sebagai tampilan default saat modal dibuka.

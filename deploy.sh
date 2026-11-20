@@ -94,9 +94,15 @@ echo "🗄️  [3/6] Menjalankan migrasi database..."
 docker exec "$CONTAINER_NAME" php artisan migrate --force
 echo "   ✅ Migrasi selesai."
 
-# 6. Optimasi Laravel (cache config, route, view)
+# 6. Build frontend assets (Vite)
 echo ""
-echo "⚡ [4/6] Optimasi Laravel..."
+echo "🎨 [4/7] Build frontend assets (Vite)..."
+docker exec "$CONTAINER_NAME" npm run build
+echo "   ✅ Aset Vite berhasil di-build."
+
+# 7. Optimasi Laravel (cache config, route, view)
+echo ""
+echo "⚡ [5/7] Optimasi Laravel..."
 docker exec "$CONTAINER_NAME" php artisan optimize:clear
 docker exec "$CONTAINER_NAME" php artisan config:cache
 docker exec "$CONTAINER_NAME" php artisan route:cache
@@ -106,20 +112,20 @@ docker exec "$CONTAINER_NAME" php artisan icons:cache
 docker exec "$CONTAINER_NAME" php artisan filament:optimize
 echo "   ✅ Cache berhasil di-generate."
 
-# 7. Reload Web Server
+# 8. Reload Web Server
 echo ""
-echo "👷 [5/6] Reload Web Server..."
+echo "👷 [6/7] Reload Web Server..."
 docker restart "$CONTAINER_NAME" >/dev/null 2>&1 || true
 echo "   ✅ Web Server di-reload dengan kode terbaru."
 
-# 8. Bersihkan image Docker lama hanya jika baru saja build
+# 9. Bersihkan image Docker lama hanya jika baru saja build
 echo ""
 if [ "$NEED_BUILD" = true ]; then
-    echo "🧹 [6/6] Membersihkan image Docker lama yang tidak terpakai..."
+    echo "🧹 [7/7] Membersihkan image Docker lama yang tidak terpakai..."
     docker image prune -f
     echo "   ✅ Image lama dibersihkan."
 else
-    echo "🧹 [6/6] Lewati pembersihan image."
+    echo "🧹 [7/7] Lewati pembersihan image."
 fi
 
 # 9. Verifikasi
