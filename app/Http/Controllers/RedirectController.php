@@ -23,7 +23,7 @@ class RedirectController extends Controller
         }
 
         // 2. Fall back to microsite
-        $microsite = Microsite::with([
+        $micrositeQuery = Microsite::with([
             'category',
             'sections' => function ($query) {
                 $query->where('is_active', true)->orderBy('order');
@@ -35,9 +35,14 @@ class RedirectController extends Controller
                 $query->where('is_active', true)->orderBy('order');
             },
         ])
-            ->where('slug', $code)
-            ->where('is_published', true)
-            ->first();
+            ->where('slug', $code);
+
+        // Guest hanya boleh mengakses microsite yang sudah dipublikasikan
+        if (! auth()->check()) {
+            $micrositeQuery->where('is_published', true);
+        }
+
+        $microsite = $micrositeQuery->first();
 
         if ($microsite) {
             if (! $microsite->is_public && ! auth()->check()) {

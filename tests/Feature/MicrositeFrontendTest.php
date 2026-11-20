@@ -14,7 +14,7 @@ it('returns 404 if microsite does not exist', function () {
     $response->assertStatus(404);
 });
 
-it('returns 404 if microsite is not published', function () {
+it('returns 404 for guests if microsite is not published', function () {
     $microsite = Microsite::factory()->create([
         'slug' => 'unpublished-slug',
         'is_published' => false,
@@ -22,6 +22,20 @@ it('returns 404 if microsite is not published', function () {
 
     $response = $this->get('/unpublished-slug');
     $response->assertStatus(404);
+});
+
+it('allows authenticated users to preview unpublished draft microsite', function () {
+    $user = \App\Models\User::factory()->create();
+    $microsite = Microsite::factory()->create([
+        'slug' => 'draft-preview-slug',
+        'is_published' => false,
+        'template_key' => 'minimal-grid',
+    ]);
+
+    $response = $this->actingAs($user)->get('/draft-preview-slug');
+    $response->assertStatus(200);
+    $response->assertViewIs('templates.minimal-grid');
+    $response->assertSee($microsite->title);
 });
 
 it('returns 200 and correct template if microsite is published', function () {

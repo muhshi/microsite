@@ -97,11 +97,11 @@ class MicrositesTable
             ])
             ->recordActions([
                 Action::make('view_live')
-                    ->label('View Live')
-                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->label(fn (Microsite $record): string => $record->is_published ? 'Buka Live' : 'Preview Draft')
+                    ->icon(fn (Microsite $record): string => $record->is_published ? 'heroicon-o-arrow-top-right-on-square' : 'heroicon-o-eye')
+                    ->color(fn (Microsite $record): string => $record->is_published ? 'success' : 'warning')
                     ->url(fn (Microsite $record): string => route('redirect.handle', $record->slug))
-                    ->openUrlInNewTab()
-                    ->visible(fn (Microsite $record): bool => $record->is_published),
+                    ->openUrlInNewTab(),
                 Action::make('duplicate')
                     ->label('Duplicate')
                     ->icon('heroicon-o-document-duplicate')
