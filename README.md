@@ -78,6 +78,10 @@ A dynamic, multi-tenant microsite builder built with Laravel 13 and Filament V5.
 ## 📋 Changelog
 
 ### 2026-11-21
+- **Perbaikan Tampilan Halaman Login & Collapsible SSO:**
+  - Menambahkan dimensi eksplisit (atribut `width`/`height` dan inline styling) pada seluruh elemen SVG, badge logo BPS, dan spinner agar tidak mengalami distorsi ukuran raksasa akibat CSS Tailwind yang tidak ter-bundle di theme Filament.
+  - Merapikan layout tombol SSO dengan flexbox terstruktur (grup logo + label di sisi kiri, panah navigasi di sisi kanan).
+  - Menyempurnakan accordion "Opsi Darurat / Pengembang" dan box peringatan fallback agar proporsional, rapi, dan mendukung tampilan tema gelap (dark mode).
 - **Implementasi Login Tunggal SIPETRA SSO (BPS Kab. Demak):**
   - Mengubah antarmuka login Filament menjadi halaman kustom (`App\Filament\Pages\Auth\Login` & `filament.pages.auth.login`) dengan tombol hero tunggal BPS Blue (`#005596`), logo BPS ber-badge putih, spinner interaktif saat proses menghubungkan, dan proteksi anti-double-click.
   - Menyediakan accordion tersembunyi "Opsi Darurat / Pengembang" (`?fallback=1` atau toggle interaktif Alpine.js) yang memuat form login email/password bawaan jika server SSO offline.
