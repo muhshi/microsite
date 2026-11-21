@@ -8,7 +8,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [SsoController::class, 'redirect'])->name('login');
+Route::get('/login', function () {
+    return redirect()->route('filament.admin.auth.login');
+})->name('login');
 Route::get('/auth/sipetra/redirect', [SsoController::class, 'redirect'])->name('sipetra.login');
 Route::get('/auth/sipetra/callback', [SsoController::class, 'callback']);
 

@@ -7,7 +7,9 @@ use App\Models\User;
 use Filament\Notifications\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
+use Spatie\Permission\Models\Role;
 
 class SsoController extends Controller
 {
@@ -19,13 +21,22 @@ class SsoController extends Controller
     public function callback(Request $request)
     {
         if ($request->has('error')) {
-            return redirect()->route('filament.admin.auth.login')->with('error', 'Login SSO Dibatalkan');
+            $errorDescription = $request->get('error_description') ?? 'Login SSO dibatalkan oleh pengguna.';
+
+            return redirect()->route('filament.admin.auth.login')->with('error', $errorDescription);
         }
 
         try {
             $ssoUser = Socialite::driver('sipetra')->user();
-        } catch (\Exception $e) {
-            return redirect()->route('filament.admin.auth.login')->with('error', 'SSO Gagal: '.$e->getMessage());
+        } catch (\Throwable $e) {
+            Log::error('SIPETRA SSO Callback error: '.$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return redirect()->route('filament.admin.auth.login')->with(
+                'error',
+                'Gagal terhubung dengan server SIPETRA atau otentikasi tidak valid. Silakan coba kembali.'
+            );
         }
 
         $rawData = $ssoUser->getRaw();
@@ -49,9 +60,14 @@ class SsoController extends Controller
             $data['password'] = null;
             $user = User::create($data);
 
-            // Assign role default (jika pakai Spatie Permission)
+            // Assign role default
             if (method_exists($user, 'assignRole')) {
-                $user->assignRole('pegawai');
+                try {
+                    Role::firstOrCreate(['name' => 'pegawai', 'guard_name' => 'web']);
+                    $user->assignRole('pegawai');
+                } catch (\Throwable $e) {
+                    Log::warning('Gagal assign default role pegawai: '.$e->getMessage());
+                }
             }
         }
 

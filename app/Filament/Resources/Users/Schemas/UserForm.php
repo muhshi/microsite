@@ -39,7 +39,8 @@ class UserForm
                             ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
                             ->dehydrated(fn ($state) => filled($state))
                             ->required(fn (string $context): bool => $context === 'create')
-                            ->placeholder(fn (string $context): string => $context === 'edit' ? 'Biarkan kosong jika tidak ingin mengubah password' : 'Masukkan password'),
+                            ->placeholder(fn (string $context): string => $context === 'edit' ? 'Biarkan kosong jika tidak ingin mengubah password' : 'Masukkan password')
+                            ->helperText('Kredensial dan kata sandi utama dikelola terpusat di SIPETRA SSO. Password lokal ini hanya digunakan untuk akses darurat/pengembang.'),
                     ])
                     ->columns(2),
 
