@@ -98,6 +98,7 @@ echo "   ✅ Migrasi selesai."
 echo ""
 echo "🎨 [4/7] Build frontend assets (Vite)..."
 docker exec "$CONTAINER_NAME" npm run build
+docker exec "$CONTAINER_NAME" chown -R 1000:1000 /app/public/build 2>/dev/null || true
 echo "   ✅ Aset Vite berhasil di-build."
 
 # 7. Optimasi Laravel (cache config, route, view)
