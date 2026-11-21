@@ -33,6 +33,9 @@ echo "📂 Direktori: $(pwd)"
 # Simpan commit lama sebelum pull untuk deteksi perubahan file
 OLD_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 
+# Pastikan izin file dimiliki oleh host user sebelum git pull
+docker exec "$CONTAINER_NAME" chown -R 1000:1000 /app 2>/dev/null || true
+
 # 2. Fetch & Pull dari GitHub
 echo ""
 echo "📥 [1/6] Mengambil kode terbaru dari GitHub..."
